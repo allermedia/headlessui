@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "react": "yarn workspace @headlessui/react",
-    "vue": "yarn workspace @headlessui/vue",
+    "vue": "yarn workspace @allermedia/headlessui-vue",
     "shared": "yarn workspace @headlessui/shared",
     "build": "yarn workspaces run build",
     "test": "./scripts/test.sh",

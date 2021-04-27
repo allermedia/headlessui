@@ -39,10 +39,10 @@ function renderTemplate(input: string | Partial<Parameters<typeof defineComponen
 
 describe('Safe guards', () => {
   it.each([
-    ['DisclosureButton', DisclosureButton],
-    ['DisclosurePanel', DisclosurePanel],
+    ['headlessui-disclosure-button', DisclosureButton],
+    ['headlessui-disclosure-panel', DisclosurePanel],
   ])(
-    'should error when we are using a <%s /> without a parent <Disclosure />',
+    'should error when we are using a <%s /> without a parent <headlessui-disclosure />',
     suppressConsoleLogs((name, Component) => {
       expect(() => render(Component)).toThrowError(
         `<${name} /> is missing a parent <Disclosure /> component.`
@@ -55,10 +55,10 @@ describe('Safe guards', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Disclosure>
-            <DisclosureButton>Trigger</DisclosureButton>
-            <DisclosurePanel>Contents</DisclosurePanel>
-          </Disclosure>
+          <headlessui-disclosure>
+            <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+            <headlessui-disclosure-panel>Contents</headlessui-disclosure-panel>
+          </headlessui-disclosure>
         `
       )
 
@@ -78,10 +78,12 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Disclosure v-slot="{ open }">
-              <DisclosureButton>Trigger</DisclosureButton>
-              <DisclosurePanel>Panel is: {{open ? 'open' : 'closed'}}</DisclosurePanel>
-            </Disclosure>
+            <headlessui-disclosure v-slot="{ open }">
+              <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+              <headlessui-disclosure-panel
+                >Panel is: {{open ? 'open' : 'closed'}}</headlessui-disclosure-panel
+              >
+            </headlessui-disclosure>
           `
         )
 
@@ -104,10 +106,12 @@ describe('Rendering', () => {
     it('should be possible to render a Disclosure in an open state by default', async () => {
       renderTemplate(
         html`
-          <Disclosure v-slot="{ open }" defaultOpen>
-            <DisclosureButton>Trigger</DisclosureButton>
-            <DisclosurePanel>Panel is: {{open ? 'open' : 'closed'}}</DisclosurePanel>
-          </Disclosure>
+          <headlessui-disclosure v-slot="{ open }" defaultOpen>
+            <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+            <headlessui-disclosure-panel
+              >Panel is: {{open ? 'open' : 'closed'}}</headlessui-disclosure-panel
+            >
+          </headlessui-disclosure>
         `
       )
 
@@ -131,10 +135,12 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Disclosure>
-              <DisclosureButton v-slot="slot">{{JSON.stringify(slot)}}</DisclosureButton>
-              <DisclosurePanel></DisclosurePanel>
-            </Disclosure>
+            <headlessui-disclosure>
+              <headlessui-disclosure-button v-slot="slot"
+                >{{JSON.stringify(slot)}}</headlessui-disclosure-button
+              >
+              <headlessui-disclosure-panel></headlessui-disclosure-panel>
+            </headlessui-disclosure>
           `
         )
 
@@ -161,12 +167,12 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Disclosure>
-              <DisclosureButton as="div" role="button" v-slot="slot">
+            <headlessui-disclosure>
+              <headlessui-disclosure-button as="div" role="button" v-slot="slot">
                 {{JSON.stringify(slot)}}
-              </DisclosureButton>
-              <DisclosurePanel />
-            </Disclosure>
+              </headlessui-disclosure-button>
+              <headlessui-disclosure-panel />
+            </headlessui-disclosure>
           `
         )
 
@@ -195,10 +201,12 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Disclosure>
-              <DisclosureButton>Trigger</DisclosureButton>
-              <DisclosurePanel v-slot="slot">{{JSON.stringify(slot)}}</DisclosurePanel>
-            </Disclosure>
+            <headlessui-disclosure>
+              <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+              <headlessui-disclosure-panel v-slot="slot"
+                >{{JSON.stringify(slot)}}</headlessui-disclosure-panel
+              >
+            </headlessui-disclosure>
           `
         )
 
@@ -224,10 +232,10 @@ describe('Rendering', () => {
     it('should be possible to always render the DisclosurePanel if we provide it a `static` prop', () => {
       renderTemplate(
         html`
-          <Disclosure>
-            <DisclosureButton>Trigger</DisclosureButton>
-            <DisclosurePanel static>Contents</DisclosurePanel>
-          </Disclosure>
+          <headlessui-disclosure>
+            <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+            <headlessui-disclosure-panel static>Contents</headlessui-disclosure-panel>
+          </headlessui-disclosure>
         `
       )
 
@@ -238,10 +246,10 @@ describe('Rendering', () => {
     it('should be possible to use a different render strategy for the DisclosurePanel', async () => {
       renderTemplate(
         `
-          <Disclosure>
-            <DisclosureButton>Trigger</DisclosureButton>
-            <DisclosurePanel :unmount="false">Contents</DisclosurePanel>
-          </Disclosure>
+          <headlessui-disclosure>
+            <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+            <headlessui-disclosure-panel :unmount="false">Contents</headlessui-disclosure-panel>
+          </headlessui-disclosure>
         `
       )
 
@@ -273,10 +281,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Disclosure>
-              <DisclosureButton>Trigger</DisclosureButton>
-              <DisclosurePanel>Contents</DisclosurePanel>
-            </Disclosure>
+            <headlessui-disclosure>
+              <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+              <headlessui-disclosure-panel>Contents</headlessui-disclosure-panel>
+            </headlessui-disclosure>
           `
         )
 
@@ -310,10 +318,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Disclosure>
-              <DisclosureButton disabled>Trigger</DisclosureButton>
-              <DisclosurePanel>Content</DisclosurePanel>
-            </Disclosure>
+            <headlessui-disclosure>
+              <headlessui-disclosure-button disabled>Trigger</headlessui-disclosure-button>
+              <headlessui-disclosure-panel>Content</headlessui-disclosure-panel>
+            </headlessui-disclosure>
           `
         )
 
@@ -343,10 +351,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Disclosure>
-              <DisclosureButton>Trigger</DisclosureButton>
-              <DisclosurePanel>Contents</DisclosurePanel>
-            </Disclosure>
+            <headlessui-disclosure>
+              <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+              <headlessui-disclosure-panel>Contents</headlessui-disclosure-panel>
+            </headlessui-disclosure>
           `
         )
 
@@ -385,10 +393,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Disclosure>
-              <DisclosureButton>Trigger</DisclosureButton>
-              <DisclosurePanel>Contents</DisclosurePanel>
-            </Disclosure>
+            <headlessui-disclosure>
+              <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+              <headlessui-disclosure-panel>Contents</headlessui-disclosure-panel>
+            </headlessui-disclosure>
           `
         )
 
@@ -418,10 +426,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Disclosure>
-              <DisclosureButton disabled>Trigger</DisclosureButton>
-              <DisclosurePanel>Contents</DisclosurePanel>
-            </Disclosure>
+            <headlessui-disclosure>
+              <headlessui-disclosure-button disabled>Trigger</headlessui-disclosure-button>
+              <headlessui-disclosure-panel>Contents</headlessui-disclosure-panel>
+            </headlessui-disclosure>
           `
         )
 
@@ -451,10 +459,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Disclosure>
-              <DisclosureButton>Trigger</DisclosureButton>
-              <DisclosurePanel>Contents</DisclosurePanel>
-            </Disclosure>
+            <headlessui-disclosure>
+              <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+              <headlessui-disclosure-panel>Contents</headlessui-disclosure-panel>
+            </headlessui-disclosure>
           `
         )
 
@@ -494,10 +502,10 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Disclosure>
-            <DisclosureButton>Trigger</DisclosureButton>
-            <DisclosurePanel>Contents</DisclosurePanel>
-          </Disclosure>
+          <headlessui-disclosure>
+            <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+            <headlessui-disclosure-panel>Contents</headlessui-disclosure-panel>
+          </headlessui-disclosure>
         `
       )
 
@@ -524,10 +532,10 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Disclosure>
-            <DisclosureButton>Trigger</DisclosureButton>
-            <DisclosurePanel>Contents</DisclosurePanel>
-          </Disclosure>
+          <headlessui-disclosure>
+            <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+            <headlessui-disclosure-panel>Contents</headlessui-disclosure-panel>
+          </headlessui-disclosure>
         `
       )
 
@@ -554,10 +562,10 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Disclosure>
-            <DisclosureButton disabled>Trigger</DisclosureButton>
-            <DisclosurePanel>Contents</DisclosurePanel>
-          </Disclosure>
+          <headlessui-disclosure>
+            <headlessui-disclosure-button disabled>Trigger</headlessui-disclosure-button>
+            <headlessui-disclosure-panel>Contents</headlessui-disclosure-panel>
+          </headlessui-disclosure>
         `
       )
 
@@ -584,10 +592,10 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Disclosure>
-            <DisclosureButton>Trigger</DisclosureButton>
-            <DisclosurePanel>Contents</DisclosurePanel>
-          </Disclosure>
+          <headlessui-disclosure>
+            <headlessui-disclosure-button>Trigger</headlessui-disclosure-button>
+            <headlessui-disclosure-panel>Contents</headlessui-disclosure-panel>
+          </headlessui-disclosure>
         `
       )
 

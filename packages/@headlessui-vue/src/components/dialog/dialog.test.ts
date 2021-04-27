@@ -60,13 +60,13 @@ function renderTemplate(input: string | Partial<Parameters<typeof defineComponen
 
 describe('Safe guards', () => {
   it.each([
-    ['DialogOverlay', DialogOverlay],
-    ['DialogTitle', DialogTitle],
+    ['headlessui-dialog-overlay', DialogOverlay],
+    ['headlessui-dialog-title', DialogTitle],
   ])(
-    'should error when we are using a <%s /> without a parent <Dialog />',
+    'should error when we are using a <%s /> without a parent <headlessui-dialog />',
     suppressConsoleLogs((name, Component) => {
       expect(() => render(Component)).toThrowError(
-        `<${name} /> is missing a parent <Dialog /> component.`
+        `<${name} /> is missing a parent <headlessui-dialog /> component.`
       )
       expect.hasAssertions()
     })
@@ -77,13 +77,13 @@ describe('Safe guards', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         `
-          <Dialog :open="false" @close="() => {}">
+          <headlessui-dialog :open="false" @close="() => {}">
             <button>Trigger</button>
-            <DialogOverlay />
-            <DialogTitle />
+            <headlessui-dialog-overlay />
+            <headlessui-dialog-title />
             <p>Contents</p>
-            <DialogDescription />
-          </Dialog>
+            <headlessui-dialog-description />
+          </headlessui-dialog>
         `
       )
 
@@ -103,7 +103,7 @@ describe('Rendering', () => {
         expect(() =>
           renderTemplate(
             `
-              <Dialog as="div" @close="() => {}" />
+              <headlessui-dialog as="div" @close="() => {}" />
             `
           )
         ).toThrowErrorMatchingInlineSnapshot(
@@ -119,7 +119,7 @@ describe('Rendering', () => {
         expect(() =>
           renderTemplate(
             `
-              <Dialog as="div" :open="null" @close="() => {}" />
+              <headlessui-dialog as="div" :open="null" @close="() => {}" />
             `
           )
         ).toThrowErrorMatchingInlineSnapshot(
@@ -138,10 +138,10 @@ describe('Rendering', () => {
               <button id="trigger" @click="setIsOpen(true)">
                 Trigger
               </button>
-              <Dialog :open="isOpen" @close="setIsOpen" v-slot="data">
+              <headlessui-dialog :open="isOpen" @close="setIsOpen" v-slot="data">
                 <pre>{{JSON.stringify(data)}}</pre>
                 <TabSentinel />
-              </Dialog>
+              </headlessui-dialog>
             </div>
           `,
           setup() {
@@ -170,9 +170,9 @@ describe('Rendering', () => {
             <button id="trigger" @click="setIsOpen(true)">
               Trigger
             </button>
-            <Dialog :open="isOpen" @close="setIsOpen" class="relative bg-blue-500">
+            <headlessui-dialog :open="isOpen" @close="setIsOpen" class="relative bg-blue-500">
               <TabSentinel />
-            </Dialog>
+            </headlessui-dialog>
           </div>
         `,
         setup() {
@@ -199,10 +199,10 @@ describe('Rendering', () => {
         template: `
           <div>
             <button>Trigger</button>
-            <Dialog :open="true" @close="() => {}" static>
+            <headlessui-dialog :open="true" @close="() => {}" static>
               <p>Contents</p>
               <TabSentinel @focus="focusCounter" />
-            </Dialog>
+            </headlessui-dialog>
           </div>
         `,
         setup() {
@@ -223,10 +223,10 @@ describe('Rendering', () => {
         template: `
           <div>
             <button>Trigger</button>
-            <Dialog :open="false" @close="() => {}" static>
+            <headlessui-dialog :open="false" @close="() => {}" static>
               <p>Contents</p>
               <TabSentinel @focus="focusCounter" />
-            </Dialog>
+            </headlessui-dialog>
           </div>
         `,
         setup() {
@@ -247,9 +247,9 @@ describe('Rendering', () => {
         template: `
           <div>
             <button id="trigger" @click="isOpen = !isOpen">Trigger</button>
-            <Dialog :open="isOpen" @close="setIsOpen" :unmount="false">
+            <headlessui-dialog :open="isOpen" @close="setIsOpen" :unmount="false">
               <TabSentinel @focus="focusCounter" />
-            </Dialog>
+            </headlessui-dialog>
           </div>
         `,
         setup() {
@@ -293,11 +293,11 @@ describe('Rendering', () => {
                 Trigger
               </button>
 
-              <Dialog :open="isOpen" @close="setIsOpen">
+              <headlessui-dialog :open="isOpen" @close="setIsOpen">
                 <input id="a" type="text" />
                 <input id="b" type="text" />
                 <input id="c" type="text" />
-              </Dialog>
+              </headlessui-dialog>
             </div>
           `,
           setup() {
@@ -338,10 +338,10 @@ describe('Rendering', () => {
               <button id="trigger" @click="toggleOpen">
                 Trigger
               </button>
-              <Dialog :open="isOpen" @close="setIsOpen">
-                <DialogOverlay v-slot="data">{{JSON.stringify(data)}}</DialogOverlay>
+              <headlessui-dialog :open="isOpen" @close="setIsOpen">
+                <headlessui-dialog-overlay v-slot="data">{{JSON.stringify(data)}}</headlessui-dialog-overlay>
                 <TabSentinel />
-              </Dialog>
+              </headlessui-dialog>
             </div>
           `,
           setup() {
@@ -380,10 +380,10 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           `
-            <Dialog :open="true" @close="() => {}">
-              <DialogTitle v-slot="data">{{JSON.stringify(data)}}</DialogTitle>
+            <headlessui-dialog :open="true" @close="() => {}">
+              <headlessui-dialog-title v-slot="data">{{JSON.stringify(data)}}</headlessui-dialog-title>
               <TabSentinel />
-            </Dialog>
+            </headlessui-dialog>
           `
         )
 
@@ -407,10 +407,10 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           `
-            <Dialog :open="true" @close="() => {}">
-              <DialogDescription v-slot="data">{{JSON.stringify(data)}}</DialogDescription>
+            <headlessui-dialog :open="true" @close="() => {}">
+              <headlessui-dialog-description v-slot="data">{{JSON.stringify(data)}}</headlessui-dialog-description>
               <TabSentinel />
-            </Dialog>
+            </headlessui-dialog>
           `
         )
 
@@ -440,10 +440,10 @@ describe('Keyboard interactions', () => {
               <button id="trigger" @click="toggleOpen">
                 Trigger
               </button>
-              <Dialog :open="isOpen" @close="setIsOpen">
+              <headlessui-dialog :open="isOpen" @close="setIsOpen">
                 Contents
                 <TabSentinel />
-              </Dialog>
+              </headlessui-dialog>
             </div>
           `,
           setup() {
@@ -491,11 +491,11 @@ describe('Mouse interactions', () => {
             <button id="trigger" @click="toggleOpen">
               Trigger
             </button>
-            <Dialog :open="isOpen" @close="setIsOpen">
-              <DialogOverlay />
+            <headlessui-dialog :open="isOpen" @close="setIsOpen">
+              <headlessui-dialog-overlay />
               Contents
               <TabSentinel />
-            </Dialog>
+            </headlessui-dialog>
           </div>
         `,
         setup() {
@@ -533,10 +533,10 @@ describe('Mouse interactions', () => {
         template: `
           <div>
             <button @click="isOpen = !isOpen">Trigger</button>
-            <Dialog :open="isOpen" @close="setIsOpen">
+            <headlessui-dialog :open="isOpen" @close="setIsOpen">
               Contents
               <TabSentinel />
-            </Dialog>
+            </headlessui-dialog>
           </div>
         `,
         setup() {
@@ -575,10 +575,10 @@ describe('Mouse interactions', () => {
           <div>
             <button>Hello</button>
             <button @click="isOpen = !isOpen">Trigger</button>
-            <Dialog v-if="true" :open="isOpen" @close="setIsOpen">
+            <headlessui-dialog v-if="true" :open="isOpen" @close="setIsOpen">
               Contents
               <TabSentinel />
-            </Dialog>
+            </headlessui-dialog>
           </div>
         `,
         setup() {
@@ -616,11 +616,11 @@ describe('Mouse interactions', () => {
       renderTemplate({
         template: `
           <div @click="wrapperFn">
-            <Dialog v-if="true" :open="isOpen" @close="setIsOpen">
+            <headlessui-dialog v-if="true" :open="isOpen" @close="setIsOpen">
               Contents
-              <DialogOverlay />
+              <headlessui-dialog-overlay />
               <TabSentinel />
-            </Dialog>
+            </headlessui-dialog>
           </div>
         `,
         setup() {
@@ -659,11 +659,11 @@ describe('Mouse interactions', () => {
       renderTemplate({
         template: `
           <div @click="wrapperFn">
-            <Dialog v-if="true" :open="isOpen" @close="setIsOpen">
+            <headlessui-dialog v-if="true" :open="isOpen" @close="setIsOpen">
               Contents
               <button @click="setIsOpen(false)">Inside</button>
               <TabSentinel />
-            </Dialog>
+            </headlessui-dialog>
           </div>
         `,
         setup() {

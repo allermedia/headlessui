@@ -29,7 +29,7 @@ function getPortalRoot() {
 }
 
 export let Portal = defineComponent({
-  name: 'Portal',
+  name: 'headlessui-portal',
   props: {
     as: { type: [Object, String], default: 'div' },
   },
@@ -82,7 +82,7 @@ export let Portal = defineComponent({
           slot: {},
           attrs,
           slots,
-          name: 'Portal',
+          name: 'headlessui-portal',
         })
       )
     }
@@ -91,12 +91,12 @@ export let Portal = defineComponent({
 
 // ---
 
-let PortalGroupContext = Symbol('PortalGroupContext') as InjectionKey<{
+let PortalGroupContext = Symbol('headlessui-portal-group-context') as InjectionKey<{
   resolveTarget(): HTMLElement | null
 }>
 
 export let PortalGroup = defineComponent({
-  name: 'PortalGroup',
+  name: 'headlessui-portal-group',
   props: {
     as: { type: [Object, String], default: 'template' },
     target: { type: Object as PropType<HTMLElement | null>, default: null },
@@ -113,7 +113,13 @@ export let PortalGroup = defineComponent({
     return () => {
       let { target: _, ...passThroughProps } = props
 
-      return render({ props: passThroughProps, slot: {}, attrs, slots, name: 'PortalGroup' })
+      return render({
+        props: passThroughProps,
+        slot: {},
+        attrs,
+        slots,
+        name: 'headlessui-portal-group',
+      })
     }
   },
 })

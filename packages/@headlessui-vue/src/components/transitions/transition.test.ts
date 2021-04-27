@@ -49,9 +49,9 @@ function withStyles(css: string) {
 it('should render without crashing', () => {
   renderTemplate({
     template: html`
-      <TransitionRoot :show="true">
+      <headlessui-transition-root :show="true">
         <div class="hello">Children</div>
-      </TransitionRoot>
+      </headlessui-transition-root>
     `,
   })
 })
@@ -59,7 +59,7 @@ it('should render without crashing', () => {
 it('should be possible to render a Transition without children', () => {
   renderTemplate({
     template: html`
-      <TransitionRoot :show="true" class="transition" />
+      <headlessui-transition-root :show="true" class="transition" />
     `,
   })
   expect(document.getElementsByClassName('transition')).not.toBeNull()
@@ -72,13 +72,15 @@ it(
 
     renderTemplate({
       template: html`
-        <TransitionRoot>
+        <headlessui-transition-root>
           <div class="hello">Children</div>
-        </TransitionRoot>
+        </headlessui-transition-root>
       `,
       errorCaptured(err) {
         expect(err as Error).toEqual(
-          new Error('A <Transition /> is used but it is missing a `:show="true | false"` prop.')
+          new Error(
+            'A <headlessui-transition /> is used but it is missing a `:show="true | false"` prop.'
+          )
         )
 
         return false
@@ -92,7 +94,7 @@ describe('Setup API', () => {
     it('should render a div and its children by default', () => {
       let { container } = renderTemplate({
         template: html`
-          <TransitionRoot :show="true">Children</TransitionRoot>
+          <headlessui-transition-root :show="true">Children</headlessui-transition-root>
         `,
       })
 
@@ -106,9 +108,9 @@ describe('Setup API', () => {
     it('should passthrough all the props (that we do not use internally)', () => {
       let { container } = renderTemplate({
         template: html`
-          <TransitionRoot :show="true" id="root" class="text-blue-400">
+          <headlessui-transition-root :show="true" id="root" class="text-blue-400">
             Children
-          </TransitionRoot>
+          </headlessui-transition-root>
         `,
       })
 
@@ -125,9 +127,9 @@ describe('Setup API', () => {
     it('should render another component if the `as` prop is used and its children by default', () => {
       let { container } = renderTemplate({
         template: html`
-          <TransitionRoot :show="true" as="a">
+          <headlessui-transition-root :show="true" as="a">
             Children
-          </TransitionRoot>
+          </headlessui-transition-root>
         `,
       })
 
@@ -141,9 +143,9 @@ describe('Setup API', () => {
     it('should passthrough all the props (that we do not use internally) even when using an `as` prop', () => {
       let { container } = renderTemplate({
         template: html`
-          <TransitionRoot :show="true" as="a" href="/" class="text-blue-400">
+          <headlessui-transition-root :show="true" as="a" href="/" class="text-blue-400">
             Children
-          </TransitionRoot>
+          </headlessui-transition-root>
         `,
       })
 
@@ -160,7 +162,7 @@ describe('Setup API', () => {
     it('should render nothing when the show prop is false', () => {
       let { container } = renderTemplate({
         template: html`
-          <TransitionRoot :show="false">Children</TransitionRoot>
+          <headlessui-transition-root :show="false">Children</headlessui-transition-root>
         `,
       })
 
@@ -170,9 +172,9 @@ describe('Setup API', () => {
     it('should be possible to change the underlying DOM tag', () => {
       let { container } = renderTemplate({
         template: html`
-          <TransitionRoot :show="true" as="a">
+          <headlessui-transition-root :show="true" as="a">
             Children
-          </TransitionRoot>
+          </headlessui-transition-root>
         `,
       })
 
@@ -186,20 +188,20 @@ describe('Setup API', () => {
 
   describe('nested', () => {
     it(
-      'should yell at us when we forget to wrap the `<TransitionChild />` in a parent <Transition /> component',
+      'should yell at us when we forget to wrap the `<headlessui-transition-child />` in a parent <headlessui-transition /> component',
       suppressConsoleLogs(() => {
         expect.assertions(1)
 
         renderTemplate({
           template: html`
             <div class="My Page">
-              <TransitionChild>Oops</TransitionChild>
+              <headlessui-transition-child>Oops</headlessui-transition-child>
             </div>
           `,
           errorCaptured(err) {
             expect(err as Error).toEqual(
               new Error(
-                'A <TransitionChild /> is used but it is missing a parent <TransitionRoot />.'
+                'A <headlessui-transition-child /> is used but it is missing a parent <headlessui-transition-root />.'
               )
             )
             return false
@@ -211,9 +213,9 @@ describe('Setup API', () => {
     it('should be possible to render a TransitionChild without children', () => {
       renderTemplate({
         template: html`
-          <TransitionRoot :show="true">
-            <TransitionChild class="transition" />
-          </TransitionRoot>
+          <headlessui-transition-root :show="true">
+            <headlessui-transition-child class="transition" />
+          </headlessui-transition-root>
         `,
       })
       expect(document.getElementsByClassName('transition')).not.toBeNull()
@@ -223,10 +225,10 @@ describe('Setup API', () => {
       let { container } = renderTemplate({
         template: html`
           <div class="My Page">
-            <TransitionRoot :show="true">
-              <TransitionChild>Sidebar</TransitionChild>
-              <TransitionChild>Content</TransitionChild>
-            </TransitionRoot>
+            <headlessui-transition-root :show="true">
+              <headlessui-transition-child>Sidebar</headlessui-transition-child>
+              <headlessui-transition-child>Content</headlessui-transition-child>
+            </headlessui-transition-root>
           </div>
         `,
       })
@@ -251,10 +253,10 @@ describe('Setup API', () => {
       let { container } = renderTemplate({
         template: html`
           <div class="My Page">
-            <TransitionRoot :show="true">
-              <TransitionChild as="aside">Sidebar</TransitionChild>
-              <TransitionChild as="section">Content</TransitionChild>
-            </TransitionRoot>
+            <headlessui-transition-root :show="true">
+              <headlessui-transition-child as="aside">Sidebar</headlessui-transition-child>
+              <headlessui-transition-child as="section">Content</headlessui-transition-child>
+            </headlessui-transition-root>
           </div>
         `,
       })
@@ -279,10 +281,10 @@ describe('Setup API', () => {
       let { container } = renderTemplate({
         template: html`
           <div class="My Page">
-            <TransitionRoot :show="true" as="article">
-              <TransitionChild as="aside">Sidebar</TransitionChild>
-              <TransitionChild as="section">Content</TransitionChild>
-            </TransitionRoot>
+            <headlessui-transition-root :show="true" as="article">
+              <headlessui-transition-child as="aside">Sidebar</headlessui-transition-child>
+              <headlessui-transition-child as="section">Content</headlessui-transition-child>
+            </headlessui-transition-root>
           </div>
         `,
       })
@@ -307,10 +309,14 @@ describe('Setup API', () => {
       let { container } = renderTemplate({
         template: html`
           <div class="My Page">
-            <TransitionRoot :show="true">
-              <TransitionChild as="template" v-slot=""><aside>Sidebar</aside></TransitionChild>
-              <TransitionChild as="template" v-slot=""><section>Content</section></TransitionChild>
-            </TransitionRoot>
+            <headlessui-transition-root :show="true">
+              <headlessui-transition-child as="template" v-slot=""
+                ><aside>Sidebar</aside></headlessui-transition-child
+              >
+              <headlessui-transition-child as="template" v-slot=""
+                ><section>Content</section></headlessui-transition-child
+              >
+            </headlessui-transition-root>
           </div>
         `,
       })
@@ -335,16 +341,16 @@ describe('Setup API', () => {
       let { container } = renderTemplate({
         template: html`
           <div class="My Page">
-            <TransitionRoot :show="true" as="template">
+            <headlessui-transition-root :show="true" as="template">
               <article>
-                <TransitionChild as="template" v-slot="">
+                <headlessui-transition-child as="template" v-slot="">
                   <aside>Sidebar</aside>
-                </TransitionChild>
-                <TransitionChild as="template" v-slot="">
+                </headlessui-transition-child>
+                <headlessui-transition-child as="template" v-slot="">
                   <section>Content</section>
-                </TransitionChild>
+                </headlessui-transition-child>
               </article>
-            </TransitionRoot>
+            </headlessui-transition-root>
           </div>
         `,
       })
@@ -380,10 +386,14 @@ describe('Setup API', () => {
           components: { TransitionRoot, TransitionChild, Dummy },
           template: html`
             <div class="My Page">
-              <TransitionRoot :show="true">
-                <TransitionChild as="template"><Dummy>Sidebar</Dummy></TransitionChild>
-                <TransitionChild as="template"><Dummy>Content</Dummy></TransitionChild>
-              </TransitionRoot>
+              <headlessui-transition-root :show="true">
+                <headlessui-transition-child as="template"
+                  ><Dummy>Sidebar</Dummy></headlessui-transition-child
+                >
+                <headlessui-transition-child as="template"
+                  ><Dummy>Content</Dummy></headlessui-transition-child
+                >
+              </headlessui-transition-root>
             </div>
           `,
           errorCaptured(err) {
@@ -402,7 +412,7 @@ describe('Setup API', () => {
       let { container } = renderTemplate({
         components: { TransitionRoot },
         template: html`
-          <TransitionRoot
+          <headlessui-transition-root
             :show="true"
             enter="enter"
             enterFrom="enter-from"
@@ -412,7 +422,7 @@ describe('Setup API', () => {
             leaveTo="leave-to"
           >
             Children
-          </TransitionRoot>
+          </headlessui-transition-root>
         `,
       })
 
@@ -426,7 +436,7 @@ describe('Setup API', () => {
     it('should be possible to passthrough the transition classes and immediately apply the enter transitions when appear is set to true', () => {
       let { container } = renderTemplate({
         template: html`
-          <TransitionRoot
+          <headlessui-transition-root
             :show="true"
             :appear="true"
             enter="enter"
@@ -437,7 +447,7 @@ describe('Setup API', () => {
             leaveTo="leave-to"
           >
             Children
-          </TransitionRoot>
+          </headlessui-transition-root>
         `,
       })
 
@@ -466,9 +476,9 @@ describe('Transitions', () => {
       let Example = defineComponent({
         components: { TransitionRoot },
         template: html`
-          <TransitionRoot :show="show" enter="enter" enterFrom="from" enterTo="to">
+          <headlessui-transition-root :show="show" enter="enter" enterFrom="from" enterTo="to">
             <span>Hello!</span>
-          </TransitionRoot>
+          </headlessui-transition-root>
 
           <button data-testid="toggle" @click="show = !show">
             Toggle
@@ -521,9 +531,9 @@ describe('Transitions', () => {
       let Example = defineComponent({
         components: { TransitionRoot },
         template: html`
-          <TransitionRoot :show="show" enter="enter" enterFrom="from" enterTo="to">
+          <headlessui-transition-root :show="show" enter="enter" enterFrom="from" enterTo="to">
             <span>Hello!</span>
-          </TransitionRoot>
+          </headlessui-transition-root>
 
           <button data-testid="toggle" @click="show = !show">
             Toggle
@@ -576,9 +586,15 @@ describe('Transitions', () => {
       let Example = defineComponent({
         components: { TransitionRoot },
         template: html`
-          <TransitionRoot :show="show" :unmount="false" enter="enter" enterFrom="from" enterTo="to">
+          <headlessui-transition-root
+            :show="show"
+            :unmount="false"
+            enter="enter"
+            enterFrom="from"
+            enterTo="to"
+          >
             <span>Hello!</span>
-          </TransitionRoot>
+          </headlessui-transition-root>
 
           <button data-testid="toggle" @click="show = !show">
             Toggle
@@ -626,9 +642,9 @@ describe('Transitions', () => {
       let Example = defineComponent({
         components: { TransitionRoot },
         template: html`
-          <TransitionRoot :show="show" enter="enter" enterFrom="from" enterTo="to">
+          <headlessui-transition-root :show="show" enter="enter" enterFrom="from" enterTo="to">
             <span>Hello!</span>
-          </TransitionRoot>
+          </headlessui-transition-root>
 
           <button data-testid="toggle" @click="show = !show">
             Toggle
@@ -683,9 +699,9 @@ describe('Transitions', () => {
         let Example = defineComponent({
           components: { TransitionRoot },
           template: html`
-            <TransitionRoot :show="show" leave="leave" leaveFrom="from" leaveTo="to">
+            <headlessui-transition-root :show="show" leave="leave" leaveFrom="from" leaveTo="to">
               <span>Hello!</span>
-            </TransitionRoot>
+            </headlessui-transition-root>
 
             <button data-testid="toggle" @click="show = !show">
               Toggle
@@ -743,7 +759,7 @@ describe('Transitions', () => {
         let Example = defineComponent({
           components: { TransitionRoot },
           template: html`
-            <TransitionRoot
+            <headlessui-transition-root
               :show="show"
               :unmount="false"
               leave="leave"
@@ -751,7 +767,7 @@ describe('Transitions', () => {
               leaveTo="to"
             >
               <span>Hello!</span>
-            </TransitionRoot>
+            </headlessui-transition-root>
 
             <button data-testid="toggle" @click="show = !show">
               Toggle
@@ -810,7 +826,7 @@ describe('Transitions', () => {
         let Example = defineComponent({
           components: { TransitionRoot },
           template: html`
-            <TransitionRoot
+            <headlessui-transition-root
               :show="show"
               enter="enter"
               enterFrom="enter-from"
@@ -820,7 +836,7 @@ describe('Transitions', () => {
               leaveTo="leave-to"
             >
               <span>Hello!</span>
-            </TransitionRoot>
+            </headlessui-transition-root>
 
             <button data-testid="toggle" @click="show = !show">
               Toggle
@@ -905,7 +921,7 @@ describe('Transitions', () => {
         let Example = defineComponent({
           components: { TransitionRoot },
           template: html`
-            <TransitionRoot
+            <headlessui-transition-root
               :show="show"
               :unmount="false"
               enter="enter"
@@ -916,7 +932,7 @@ describe('Transitions', () => {
               leaveTo="leave-to"
             >
               <span>Hello!</span>
-            </TransitionRoot>
+            </headlessui-transition-root>
 
             <button data-testid="toggle" @click="show = !show">
               Toggle
@@ -1012,14 +1028,22 @@ describe('Transitions', () => {
         let Example = defineComponent({
           components: { TransitionRoot, TransitionChild },
           template: html`
-            <TransitionRoot :show="show">
-              <TransitionChild leave="leave-fast" leaveFrom="leave-from" leaveTo="leave-to">
+            <headlessui-transition-root :show="show">
+              <headlessui-transition-child
+                leave="leave-fast"
+                leaveFrom="leave-from"
+                leaveTo="leave-to"
+              >
                 I am fast
-              </TransitionChild>
-              <TransitionChild leave="leave-slow" leaveFrom="leave-from" leaveTo="leave-to">
+              </headlessui-transition-child>
+              <headlessui-transition-child
+                leave="leave-slow"
+                leaveFrom="leave-from"
+                leaveTo="leave-to"
+              >
                 I am slow
-              </TransitionChild>
-            </TransitionRoot>
+              </headlessui-transition-child>
+            </headlessui-transition-root>
 
             <button data-testid="toggle" @click="show = !show">
               Toggle
@@ -1101,17 +1125,25 @@ describe('Transitions', () => {
         let Example = defineComponent({
           components: { TransitionRoot, TransitionChild },
           template: html`
-            <TransitionRoot :show="show">
-              <TransitionChild leave="leave-fast" leaveFrom="leave-from" leaveTo="leave-to">
+            <headlessui-transition-root :show="show">
+              <headlessui-transition-child
+                leave="leave-fast"
+                leaveFrom="leave-from"
+                leaveTo="leave-to"
+              >
                 <span>I am fast</span>
-                <TransitionRoot :show="show" leave="leave-slow">
+                <headlessui-transition-root :show="show" leave="leave-slow">
                   I am my own root component and I don't talk to the parent
-                </TransitionRoot>
-              </TransitionChild>
-              <TransitionChild leave="leave-slow" leaveFrom="leave-from" leaveTo="leave-to">
+                </headlessui-transition-root>
+              </headlessui-transition-child>
+              <headlessui-transition-child
+                leave="leave-slow"
+                leaveFrom="leave-from"
+                leaveTo="leave-to"
+              >
                 I am slow
-              </TransitionChild>
-            </TransitionRoot>
+              </headlessui-transition-child>
+            </headlessui-transition-root>
 
             <button data-testid="toggle" @click="show = !show">
               Toggle
@@ -1211,7 +1243,7 @@ describe('Events', () => {
       let Example = defineComponent({
         components: { TransitionRoot },
         template: html`
-          <TransitionRoot
+          <headlessui-transition-root
             :show="show"
             @beforeEnter="eventHandler('beforeEnter', Date.now() - start)"
             @afterEnter="eventHandler('afterEnter', Date.now() - start)"
@@ -1225,7 +1257,7 @@ describe('Events', () => {
             leaveTo="leave-to"
           >
             <span>Hello!</span>
-          </TransitionRoot>
+          </headlessui-transition-root>
 
           <button data-testid="toggle" @click="show = !show">
             Toggle

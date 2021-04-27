@@ -41,11 +41,11 @@ function renderTemplate(input: string | Partial<Parameters<typeof defineComponen
 }
 
 describe('Safe guards', () => {
-  it.each([['RadioGroupOption', RadioGroupOption]])(
-    'should error when we are using a <%s /> without a parent <RadioGroup />',
+  it.each([['headlessui-radio-group-option', RadioGroupOption]])(
+    'should error when we are using a <%s /> without a parent <headlessui-radio-group />',
     suppressConsoleLogs((name, Component) => {
       expect(() => render(Component)).toThrowError(
-        `<${name} /> is missing a parent <RadioGroup /> component.`
+        `<${name} /> is missing a parent <headlessui-radio-group /> component.`
       )
     })
   )
@@ -55,12 +55,14 @@ describe('Safe guards', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
         `,
         setup() {
           let deliveryMethod = ref(undefined)
@@ -77,7 +79,7 @@ describe('Safe guards', () => {
   it('should be possible to render a RadioGroup without options and without crashing', () => {
     renderTemplate({
       template: html`
-        <RadioGroup v-model="deliveryMethod" />
+        <headlessui-radio-group v-model="deliveryMethod" />
       `,
       setup() {
         let deliveryMethod = ref(undefined)
@@ -91,12 +93,14 @@ describe('Rendering', () => {
   it('should be possible to render a RadioGroup, where the first element is tabbable (value is undefined)', async () => {
     renderTemplate({
       template: html`
-        <RadioGroup v-model="deliveryMethod">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-          <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-          <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-        </RadioGroup>
+        <headlessui-radio-group v-model="deliveryMethod">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+          <headlessui-radio-group-option value="home-delivery"
+            >Home delivery</headlessui-radio-group-option
+          >
+          <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+        </headlessui-radio-group>
       `,
       setup() {
         let deliveryMethod = ref(undefined)
@@ -116,12 +120,14 @@ describe('Rendering', () => {
   it('should be possible to render a RadioGroup, where the first element is tabbable (value is null)', async () => {
     renderTemplate({
       template: html`
-        <RadioGroup v-model="deliveryMethod">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-          <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-          <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-        </RadioGroup>
+        <headlessui-radio-group v-model="deliveryMethod">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+          <headlessui-radio-group-option value="home-delivery"
+            >Home delivery</headlessui-radio-group-option
+          >
+          <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+        </headlessui-radio-group>
       `,
       setup() {
         let deliveryMethod = ref(null)
@@ -141,12 +147,14 @@ describe('Rendering', () => {
   it('should be possible to render a RadioGroup with an active value', async () => {
     renderTemplate({
       template: html`
-        <RadioGroup v-model="deliveryMethod">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-          <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-          <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-        </RadioGroup>
+        <headlessui-radio-group v-model="deliveryMethod">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+          <headlessui-radio-group-option value="home-delivery"
+            >Home delivery</headlessui-radio-group-option
+          >
+          <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+        </headlessui-radio-group>
       `,
       setup() {
         let deliveryMethod = ref('home-delivery')
@@ -165,12 +173,16 @@ describe('Rendering', () => {
     renderTemplate({
       template: html`
         <button @click="showFirst = !showFirst">Toggle</button>
-        <RadioGroup v-model="deliveryMethod">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption v-if="showFirst" value="pickup">Pickup</RadioGroupOption>
-          <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-          <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-        </RadioGroup>
+        <headlessui-radio-group v-model="deliveryMethod">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option v-if="showFirst" value="pickup"
+            >Pickup</headlessui-radio-group-option
+          >
+          <headlessui-radio-group-option value="home-delivery"
+            >Home delivery</headlessui-radio-group-option
+          >
+          <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+        </headlessui-radio-group>
       `,
       setup() {
         let showFirst = ref(false)
@@ -196,14 +208,16 @@ describe('Rendering', () => {
   it('should be possible to render a RadioGroupOption with a render prop', async () => {
     renderTemplate({
       template: html`
-        <RadioGroup v-model="deliveryMethod">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption value="pickup" v-slot="data"
-            >Pickup - {{JSON.stringify(data)}}</RadioGroupOption
+        <headlessui-radio-group v-model="deliveryMethod">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option value="pickup" v-slot="data"
+            >Pickup - {{JSON.stringify(data)}}</headlessui-radio-group-option
           >
-          <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-          <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-        </RadioGroup>
+          <headlessui-radio-group-option value="home-delivery"
+            >Home delivery</headlessui-radio-group-option
+          >
+          <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+        </headlessui-radio-group>
       `,
       setup() {
         let deliveryMethod = ref(undefined)
@@ -221,12 +235,16 @@ describe('Rendering', () => {
   it('should set the checked v-slot info to true for the selected item (testing with objects, because Vue proxies)', async () => {
     renderTemplate({
       template: html`
-        <RadioGroup v-model="deliveryMethod">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption v-for="option in options" key="option.id" :value="option" v-slot="data"
-            >{{option.label}} - {{JSON.stringify(data)}}</RadioGroupOption
+        <headlessui-radio-group v-model="deliveryMethod">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option
+            v-for="option in options"
+            key="option.id"
+            :value="option"
+            v-slot="data"
+            >{{option.label}} - {{JSON.stringify(data)}}</headlessui-radio-group-option
           >
-        </RadioGroup>
+        </headlessui-radio-group>
       `,
       setup() {
         let deliveryMethod = ref(undefined)
@@ -273,12 +291,16 @@ describe('Rendering', () => {
   it('should be possible to put classes on a RadioGroup', async () => {
     renderTemplate({
       template: html`
-        <RadioGroup v-model="deliveryMethod" as="div" class="abc">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption v-for="option in options" key="option.id" :value="option" v-slot="data"
-            >{{option.label}}</RadioGroupOption
+        <headlessui-radio-group v-model="deliveryMethod" as="div" class="abc">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option
+            v-for="option in options"
+            key="option.id"
+            :value="option"
+            v-slot="data"
+            >{{option.label}}</headlessui-radio-group-option
           >
-        </RadioGroup>
+        </headlessui-radio-group>
       `,
       setup() {
         let deliveryMethod = ref(undefined)
@@ -295,17 +317,17 @@ describe('Rendering', () => {
   it('should be possible to put classes on a RadioGroupOption', async () => {
     renderTemplate({
       template: html`
-        <RadioGroup v-model="deliveryMethod">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption
+        <headlessui-radio-group v-model="deliveryMethod">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option
             v-for="option in options"
             key="option.id"
             :value="option"
             v-slot="data"
             class="abc"
-            >{{option.label}}</RadioGroupOption
+            >{{option.label}}</headlessui-radio-group-option
           >
-        </RadioGroup>
+        </headlessui-radio-group>
       `,
       setup() {
         let deliveryMethod = ref(undefined)
@@ -324,15 +346,17 @@ describe('Rendering', () => {
     renderTemplate({
       template: html`
         <button @click="disabled = !disabled">Toggle</button>
-        <RadioGroup v-model="deliveryMethod" :disabled="disabled">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-          <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-          <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          <RadioGroupOption value="render-prop" data-value="render-prop" v-slot="data">
+        <headlessui-radio-group v-model="deliveryMethod" :disabled="disabled">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+          <headlessui-radio-group-option value="home-delivery"
+            >Home delivery</headlessui-radio-group-option
+          >
+          <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          <headlessui-radio-group-option value="render-prop" data-value="render-prop" v-slot="data">
             {{JSON.stringify(data)}}
-          </RadioGroupOption>
-        </RadioGroup>
+          </headlessui-radio-group-option>
+        </headlessui-radio-group>
       `,
       setup() {
         let deliveryMethod = ref(undefined)
@@ -382,20 +406,22 @@ describe('Rendering', () => {
     renderTemplate({
       template: html`
         <button @click="disabled = !disabled">Toggle</button>
-        <RadioGroup v-model="deliveryMethod">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-          <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-          <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          <RadioGroupOption
+        <headlessui-radio-group v-model="deliveryMethod">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+          <headlessui-radio-group-option value="home-delivery"
+            >Home delivery</headlessui-radio-group-option
+          >
+          <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          <headlessui-radio-group-option
             value="render-prop"
             :disabled="disabled"
             data-value="render-prop"
             v-slot="data"
           >
             {{JSON.stringify(data)}}
-          </RadioGroupOption>
-        </RadioGroup>
+          </headlessui-radio-group-option>
+        </headlessui-radio-group>
       `,
       setup() {
         let deliveryMethod = ref(undefined)
@@ -445,12 +471,14 @@ describe('Keyboard interactions', () => {
     it('should be possible to tab to the first item', async () => {
       renderTemplate({
         template: html`
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
         `,
         setup() {
           let deliveryMethod = ref()
@@ -469,12 +497,14 @@ describe('Keyboard interactions', () => {
       let changeFn = jest.fn()
       renderTemplate({
         template: html`
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
         `,
         setup() {
           let deliveryMethod = ref()
@@ -495,12 +525,14 @@ describe('Keyboard interactions', () => {
     it('should be possible to tab to the active item', async () => {
       renderTemplate({
         template: html`
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
         `,
         setup() {
           let deliveryMethod = ref('home-delivery')
@@ -517,12 +549,14 @@ describe('Keyboard interactions', () => {
       let changeFn = jest.fn()
       renderTemplate({
         template: html`
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
         `,
         setup() {
           let deliveryMethod = ref('home-delivery')
@@ -542,12 +576,14 @@ describe('Keyboard interactions', () => {
       renderTemplate({
         template: html`
           <button>Before</button>
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -570,12 +606,14 @@ describe('Keyboard interactions', () => {
       renderTemplate({
         template: html`
           <button>Before</button>
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -599,12 +637,14 @@ describe('Keyboard interactions', () => {
     it('should be possible to tab to the first item', async () => {
       renderTemplate({
         template: html`
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -626,12 +666,14 @@ describe('Keyboard interactions', () => {
       let changeFn = jest.fn()
       renderTemplate({
         template: html`
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -654,12 +696,14 @@ describe('Keyboard interactions', () => {
     it('should be possible to tab to the active item', async () => {
       renderTemplate({
         template: html`
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -679,12 +723,14 @@ describe('Keyboard interactions', () => {
       let changeFn = jest.fn()
       renderTemplate({
         template: html`
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -707,12 +753,14 @@ describe('Keyboard interactions', () => {
       renderTemplate({
         template: html`
           <button>Before</button>
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -736,12 +784,14 @@ describe('Keyboard interactions', () => {
       renderTemplate({
         template: html`
           <button>Before</button>
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -766,12 +816,14 @@ describe('Keyboard interactions', () => {
       renderTemplate({
         template: html`
           <button>Before</button>
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -809,12 +861,14 @@ describe('Keyboard interactions', () => {
       renderTemplate({
         template: html`
           <button>Before</button>
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -850,12 +904,14 @@ describe('Keyboard interactions', () => {
       renderTemplate({
         template: html`
           <button>Before</button>
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -895,12 +951,14 @@ describe('Keyboard interactions', () => {
       renderTemplate({
         template: html`
           <button>Before</button>
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -940,12 +998,14 @@ describe('Keyboard interactions', () => {
       renderTemplate({
         template: html`
           <button>Before</button>
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -975,12 +1035,14 @@ describe('Keyboard interactions', () => {
       renderTemplate({
         template: html`
           <button>Before</button>
-          <RadioGroup v-model="deliveryMethod">
-            <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-            <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-            <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-            <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-          </RadioGroup>
+          <headlessui-radio-group v-model="deliveryMethod">
+            <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+            <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+            <headlessui-radio-group-option value="home-delivery"
+              >Home delivery</headlessui-radio-group-option
+            >
+            <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+          </headlessui-radio-group>
           <button>After</button>
         `,
         setup() {
@@ -1017,12 +1079,14 @@ describe('Mouse interactions', () => {
     renderTemplate({
       template: html`
         <button>Before</button>
-        <RadioGroup v-model="deliveryMethod">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-          <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-          <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-        </RadioGroup>
+        <headlessui-radio-group v-model="deliveryMethod">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+          <headlessui-radio-group-option value="home-delivery"
+            >Home delivery</headlessui-radio-group-option
+          >
+          <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+        </headlessui-radio-group>
         <button>After</button>
       `,
       setup() {
@@ -1044,12 +1108,14 @@ describe('Mouse interactions', () => {
     renderTemplate({
       template: html`
         <button>Before</button>
-        <RadioGroup v-model="deliveryMethod">
-          <RadioGroupLabel>Pizza Delivery</RadioGroupLabel>
-          <RadioGroupOption value="pickup">Pickup</RadioGroupOption>
-          <RadioGroupOption value="home-delivery">Home delivery</RadioGroupOption>
-          <RadioGroupOption value="dine-in">Dine in</RadioGroupOption>
-        </RadioGroup>
+        <headlessui-radio-group v-model="deliveryMethod">
+          <headlessui-radio-group-label>Pizza Delivery</headlessui-radio-group-label>
+          <headlessui-radio-group-option value="pickup">Pickup</headlessui-radio-group-option>
+          <headlessui-radio-group-option value="home-delivery"
+            >Home delivery</headlessui-radio-group-option
+          >
+          <headlessui-radio-group-option value="dine-in">Dine in</headlessui-radio-group-option>
+        </headlessui-radio-group>
         <button>After</button>
       `,
       setup() {

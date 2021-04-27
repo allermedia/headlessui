@@ -23,19 +23,19 @@ type StateDefinition = {
   describedby: Ref<string | undefined>
 }
 
-let GroupContext = Symbol('GroupContext') as InjectionKey<StateDefinition>
+let GroupContext = Symbol('headlessui-group-context') as InjectionKey<StateDefinition>
 
 // ---
 
 export let SwitchGroup = defineComponent({
-  name: 'SwitchGroup',
+  name: 'headlessui-switch-group',
   props: {
     as: { type: [Object, String], default: 'template' },
   },
   setup(props, { slots, attrs }) {
     let switchRef = ref<StateDefinition['switchRef']['value']>(null)
     let labelledby = useLabels({
-      name: 'SwitchLabel',
+      name: 'headlessui-switch-label',
       props: {
         onClick() {
           if (!switchRef.value) return
@@ -50,14 +50,14 @@ export let SwitchGroup = defineComponent({
 
     provide(GroupContext, api)
 
-    return () => render({ props, slot: {}, slots, attrs, name: 'SwitchGroup' })
+    return () => render({ props, slot: {}, slots, attrs, name: 'headlessui-switch-group' })
   },
 })
 
 // ---
 
 export let Switch = defineComponent({
-  name: 'Switch',
+  name: 'headlessui-switch',
   emits: ['update:modelValue'],
   props: {
     as: { type: [Object, String], default: 'button' },
@@ -93,7 +93,7 @@ export let Switch = defineComponent({
       slot,
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'Switch',
+      name: 'headlessui-switch',
     })
   },
   setup(props, { emit }) {

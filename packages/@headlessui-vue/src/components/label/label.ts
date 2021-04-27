@@ -18,7 +18,7 @@ import { render } from '../../utils/render'
 
 // ---
 
-let LabelContext = Symbol('LabelContext') as InjectionKey<{
+let LabelContext = Symbol('headlessui-label-context') as InjectionKey<{
   register(value: string): () => void
   slot: Record<string, unknown>
   name: string
@@ -28,7 +28,7 @@ let LabelContext = Symbol('LabelContext') as InjectionKey<{
 function useLabelContext() {
   let context = inject(LabelContext, null)
   if (context === null) {
-    let err = new Error('You used a <Label /> component, but it is not inside a parent.')
+    let err = new Error('You used a <headlessui-label /> component, but it is not inside a parent.')
     if (Error.captureStackTrace) Error.captureStackTrace(err, useLabelContext)
     throw err
   }
@@ -64,13 +64,13 @@ export function useLabels({
 // ---
 
 export let Label = defineComponent({
-  name: 'Label',
+  name: 'headlessui-label',
   props: {
     as: { type: [Object, String], default: 'label' },
     passive: { type: [Boolean], default: false },
   },
   render() {
-    let { name = 'Label', slot = {}, props = {} } = this.context
+    let { name = 'headlessui-label', slot = {}, props = {} } = this.context
     let { passive, ...passThroughProps } = this.$props
     let propsWeControl = {
       ...Object.entries(props).reduce(

@@ -43,13 +43,15 @@ interface StateDefinition {
   unregisterOption(id: Option['id']): void
 }
 
-let RadioGroupContext = Symbol('RadioGroupContext') as InjectionKey<StateDefinition>
+let RadioGroupContext = Symbol('headlessui-radio-group-context') as InjectionKey<StateDefinition>
 
 function useRadioGroupContext(component: string) {
   let context = inject(RadioGroupContext, null)
 
   if (context === null) {
-    let err = new Error(`<${component} /> is missing a parent <RadioGroup /> component.`)
+    let err = new Error(
+      `<${component} /> is missing a parent <headlessui-radio-group /> component.`
+    )
     if (Error.captureStackTrace) Error.captureStackTrace(err, useRadioGroupContext)
     throw err
   }
@@ -60,7 +62,7 @@ function useRadioGroupContext(component: string) {
 // ---
 
 export let RadioGroup = defineComponent({
-  name: 'RadioGroup',
+  name: 'headlessui-radio-group',
   emits: ['update:modelValue'],
   props: {
     as: { type: [Object, String], default: 'div' },
@@ -84,7 +86,7 @@ export let RadioGroup = defineComponent({
       slot: {},
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'RadioGroup',
+      name: 'headlessui-radio-group',
     })
   },
   setup(props, { emit }) {
@@ -228,7 +230,7 @@ enum OptionState {
 }
 
 export let RadioGroupOption = defineComponent({
-  name: 'RadioGroupOption',
+  name: 'headlessui-radio-group-option',
   props: {
     as: { type: [Object, String], default: 'div' },
     value: { type: [Object, String, Number, Boolean] },
@@ -270,11 +272,11 @@ export let RadioGroupOption = defineComponent({
       slot,
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'RadioGroupOption',
+      name: 'headlessui-radio-group-option',
     })
   },
   setup(props) {
-    let api = useRadioGroupContext('RadioGroupOption')
+    let api = useRadioGroupContext('headlessui-radio-group-option')
     let id = `headlessui-radiogroup-option-${useId()}`
     let labelledby = useLabels({ name: 'RadioGroupLabel' })
     let describedby = useDescriptions({ name: 'RadioGroupDescription' })

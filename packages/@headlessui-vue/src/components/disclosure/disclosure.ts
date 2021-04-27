@@ -21,13 +21,13 @@ interface StateDefinition {
   toggleDisclosure(): void
 }
 
-let DisclosureContext = Symbol('DisclosureContext') as InjectionKey<StateDefinition>
+let DisclosureContext = Symbol('headlessui-disclosure-context') as InjectionKey<StateDefinition>
 
 function useDisclosureContext(component: string) {
   let context = inject(DisclosureContext, null)
 
   if (context === null) {
-    let err = new Error(`<${component} /> is missing a parent <Disclosure /> component.`)
+    let err = new Error(`<${component} /> is missing a parent <headlessui-disclosure /> component.`)
     if (Error.captureStackTrace) Error.captureStackTrace(err, useDisclosureContext)
     throw err
   }
@@ -38,7 +38,7 @@ function useDisclosureContext(component: string) {
 // ---
 
 export let Disclosure = defineComponent({
-  name: 'Disclosure',
+  name: 'headlessui-disclosure',
   props: {
     as: { type: [Object, String], default: 'template' },
     defaultOpen: { type: [Boolean], default: false },
@@ -65,7 +65,7 @@ export let Disclosure = defineComponent({
     return () => {
       let { defaultOpen: _, ...passThroughProps } = props
       let slot = { open: disclosureState.value === DisclosureStates.Open }
-      return render({ props: passThroughProps, slot, slots, attrs, name: 'Disclosure' })
+      return render({ props: passThroughProps, slot, slots, attrs, name: 'headlessui-disclosure' })
     }
   },
 })
@@ -73,13 +73,13 @@ export let Disclosure = defineComponent({
 // ---
 
 export let DisclosureButton = defineComponent({
-  name: 'DisclosureButton',
+  name: 'headlessui-disclosure-button',
   props: {
     as: { type: [Object, String], default: 'button' },
     disabled: { type: [Boolean], default: false },
   },
   render() {
-    let api = useDisclosureContext('DisclosureButton')
+    let api = useDisclosureContext('headlessui-disclosure-button')
 
     let slot = { open: api.disclosureState.value === DisclosureStates.Open }
     let propsWeControl = {
@@ -97,11 +97,11 @@ export let DisclosureButton = defineComponent({
       slot,
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'DisclosureButton',
+      name: 'headlessui-disclosure-button',
     })
   },
   setup(props) {
-    let api = useDisclosureContext('DisclosureButton')
+    let api = useDisclosureContext('headlessui-disclosure-button')
     let buttonId = `headlessui-disclosure-button-${useId()}`
     let ariaControls = computed(() => dom(api.panelRef)?.id ?? undefined)
 
@@ -141,14 +141,14 @@ export let DisclosureButton = defineComponent({
 // ---
 
 export let DisclosurePanel = defineComponent({
-  name: 'DisclosurePanel',
+  name: 'headlessui-disclosure-panel',
   props: {
     as: { type: [Object, String], default: 'div' },
     static: { type: Boolean, default: false },
     unmount: { type: Boolean, default: true },
   },
   render() {
-    let api = useDisclosureContext('DisclosurePanel')
+    let api = useDisclosureContext('headlessui-disclosure-panel')
 
     let slot = { open: api.disclosureState.value === DisclosureStates.Open }
     let propsWeControl = { id: this.id, ref: 'el' }
@@ -160,11 +160,11 @@ export let DisclosurePanel = defineComponent({
       slots: this.$slots,
       features: Features.RenderStrategy | Features.Static,
       visible: slot.open,
-      name: 'DisclosurePanel',
+      name: 'headlessui-disclosure-panel',
     })
   },
   setup() {
-    let api = useDisclosureContext('DisclosurePanel')
+    let api = useDisclosureContext('headlessui-disclosure-panel')
     let panelId = `headlessui-disclosure-panel-${useId()}`
 
     return { id: panelId, el: api.panelRef }

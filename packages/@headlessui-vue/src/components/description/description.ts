@@ -18,7 +18,7 @@ import { render } from '../../utils/render'
 
 // ---
 
-let DescriptionContext = Symbol('DescriptionContext') as InjectionKey<{
+let DescriptionContext = Symbol('headlessui-description-context') as InjectionKey<{
   register(value: string): () => void
   slot: Record<string, any>
   name: string
@@ -35,7 +35,7 @@ function useDescriptionContext() {
 
 export function useDescriptions({
   slot = {},
-  name = 'Description',
+  name = 'headlessui-description',
   props = {},
 }: {
   slot?: Record<string, unknown>
@@ -65,12 +65,12 @@ export function useDescriptions({
 // ---
 
 export let Description = defineComponent({
-  name: 'Description',
+  name: 'headlessui-description',
   props: {
     as: { type: [Object, String], default: 'p' },
   },
   render() {
-    let { name = 'Description', slot = {}, props = {} } = this.context
+    let { name = 'headlessui-description', slot = {}, props = {} } = this.context
     let passThroughProps = this.$props
     let propsWeControl = {
       ...Object.entries(props).reduce(

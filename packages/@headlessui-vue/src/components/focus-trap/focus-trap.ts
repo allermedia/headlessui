@@ -12,7 +12,7 @@ import { render } from '../../utils/render'
 import { useFocusTrap } from '../../hooks/use-focus-trap'
 
 export let FocusTrap = defineComponent({
-  name: 'FocusTrap',
+  name: 'headlessui-focus-trap',
   props: {
     as: { type: [Object, String], default: 'div' },
     initialFocus: { type: Object as PropType<HTMLElement | null>, default: null },
@@ -27,7 +27,7 @@ export let FocusTrap = defineComponent({
       slot,
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'FocusTrap',
+      name: 'headlessui-focus-trap',
     })
   },
   setup(props) {

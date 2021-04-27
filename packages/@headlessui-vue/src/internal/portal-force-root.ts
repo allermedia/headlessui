@@ -8,14 +8,14 @@ import {
 } from 'vue'
 import { render } from '../utils/render'
 
-let ForcePortalRootContext = Symbol('ForcePortalRootContext') as InjectionKey<Boolean>
+let ForcePortalRootContext = Symbol('headlessui-force-portal-root-context') as InjectionKey<Boolean>
 
 export function usePortalRoot() {
   return inject(ForcePortalRootContext, false)
 }
 
 export let ForcePortalRoot = defineComponent({
-  name: 'ForcePortalRoot',
+  name: 'headlessui-force-portal-root',
   props: {
     as: { type: [Object, String], default: 'template' },
     force: { type: Boolean, default: false },
@@ -25,7 +25,13 @@ export let ForcePortalRoot = defineComponent({
 
     return () => {
       let { force, ...passThroughProps } = props
-      return render({ props: passThroughProps, slot: {}, slots, attrs, name: 'ForcePortalRoot' })
+      return render({
+        props: passThroughProps,
+        slot: {},
+        slots,
+        attrs,
+        name: 'headlessui-force-portal-root',
+      })
     }
   },
 })

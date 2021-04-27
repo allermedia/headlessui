@@ -35,9 +35,9 @@ function renderTemplate(input: string | Partial<Parameters<typeof defineComponen
 it('should focus the first focusable element inside the FocusTrap', async () => {
   renderTemplate(
     html`
-      <FocusTrap>
+      <headlessui-focus-trap>
         <button>Trigger</button>
-      </FocusTrap>
+      </headlessui-focus-trap>
     `
   )
 
@@ -49,11 +49,11 @@ it('should focus the first focusable element inside the FocusTrap', async () => 
 it('should focus the autoFocus element inside the FocusTrap if that exists', async () => {
   renderTemplate({
     template: html`
-      <FocusTrap>
+      <headlessui-focus-trap>
         <input id="a" type="text" />
         <input id="b" type="text" ref="autofocus" />
         <input id="c" type="text" />
-      </FocusTrap>
+      </headlessui-focus-trap>
     `,
     setup() {
       let autofocus = ref<HTMLElement | null>(null)
@@ -72,11 +72,11 @@ it('should focus the autoFocus element inside the FocusTrap if that exists', asy
 it('should focus the initialFocus element inside the FocusTrap if that exists', async () => {
   renderTemplate({
     template: html`
-      <FocusTrap :initialFocus="initialFocusRef">
+      <headlessui-focus-trap :initialFocus="initialFocusRef">
         <input id="a" type="text" />
         <input id="b" type="text" />
         <input id="c" type="text" ref="initialFocusRef" />
-      </FocusTrap>
+      </headlessui-focus-trap>
     `,
     setup() {
       let initialFocusRef = ref(null)
@@ -92,11 +92,11 @@ it('should focus the initialFocus element inside the FocusTrap if that exists', 
 it('should focus the initialFocus element inside the FocusTrap even if another element has autoFocus', async () => {
   renderTemplate({
     template: html`
-      <FocusTrap :initialFocus="initialFocusRef">
+      <headlessui-focus-trap :initialFocus="initialFocusRef">
         <input id="a" type="text" />
         <input id="b" type="text" autofocus />
         <input id="c" type="text" ref="initialFocusRef" />
-      </FocusTrap>
+      </headlessui-focus-trap>
     `,
     setup() {
       let initialFocusRef = ref(null)
@@ -116,13 +116,13 @@ it(
 
     renderTemplate({
       template: html`
-        <FocusTrap>
+        <headlessui-focus-trap>
           <span>Nothing to see here...</span>
-        </FocusTrap>
+        </headlessui-focus-trap>
       `,
       errorCaptured(err: unknown) {
         expect((err as Error).message).toMatchInlineSnapshot(
-          `"There are no focusable elements inside the <FocusTrap />"`
+          `"There are no focusable elements inside the <headlessui-focus-trap />"`
         )
         return false
       },
@@ -140,11 +140,11 @@ it(
         <div>
           <input id="a" autofocus />
 
-          <FocusTrap>
+          <headlessui-focus-trap>
             <input id="b" />
             <input id="c" />
             <input id="d" />
-          </FocusTrap>
+          </headlessui-focus-trap>
         </div>
       `,
     })
@@ -203,11 +203,11 @@ it('should restore the previously focused element, before entering the FocusTrap
           Open modal
         </button>
 
-        <FocusTrap v-if="visible">
+        <headlessui-focus-trap v-if="visible">
           <button id="item-3" @click="visible = false">
             Close
           </button>
-        </FocusTrap>
+        </headlessui-focus-trap>
       </div>
     `,
     setup() {
@@ -243,11 +243,11 @@ it('should be possible to tab to the next focusable element within the focus tra
     html`
       <div>
         <button>Before</button>
-        <FocusTrap>
+        <headlessui-focus-trap>
           <button id="item-a">Item A</button>
           <button id="item-b">Item B</button>
           <button id="item-c">Item C</button>
-        </FocusTrap>
+        </headlessui-focus-trap>
         <button>After</button>
       </div>
     `
@@ -276,11 +276,11 @@ it('should be possible to shift+tab to the previous focusable element within the
     html`
       <div>
         <button>Before</button>
-        <FocusTrap>
+        <headlessui-focus-trap>
           <button id="item-a">Item A</button>
           <button id="item-b">Item B</button>
           <button id="item-c">Item C</button>
-        </FocusTrap>
+        </headlessui-focus-trap>
         <button>After</button>
       </div>
     `
@@ -307,7 +307,7 @@ it('should skip the initial "hidden" elements within the focus trap', async () =
     html`
       <div>
         <button id="before">Before</button>
-        <FocusTrap>
+        <headlessui-focus-trap>
           <button id="item-a" style="display:none">
             Item A
           </button>
@@ -316,7 +316,7 @@ it('should skip the initial "hidden" elements within the focus trap', async () =
           </button>
           <button id="item-c">Item C</button>
           <button id="item-d">Item D</button>
-        </FocusTrap>
+        </headlessui-focus-trap>
         <button>After</button>
       </div>
     `
@@ -331,14 +331,14 @@ it('should be possible skip "hidden" elements within the focus trap', async () =
     html`
       <div>
         <button id="before">Before</button>
-        <FocusTrap>
+        <headlessui-focus-trap>
           <button id="item-a">Item A</button>
           <button id="item-b">Item B</button>
           <button id="item-c" style="display:none">
             Item C
           </button>
           <button id="item-d">Item D</button>
-        </FocusTrap>
+        </headlessui-focus-trap>
         <button>After</button>
       </div>
     `
@@ -367,14 +367,14 @@ it('should be possible skip disabled elements within the focus trap', async () =
     html`
       <div>
         <button id="before">Before</button>
-        <FocusTrap>
+        <headlessui-focus-trap>
           <button id="item-a">Item A</button>
           <button id="item-b">Item B</button>
           <button id="item-c" disabled>
             Item C
           </button>
           <button id="item-d">Item D</button>
-        </FocusTrap>
+        </headlessui-focus-trap>
         <button>After</button>
       </div>
     `

@@ -58,28 +58,28 @@ function renderTemplate(input: string | Partial<Parameters<typeof defineComponen
 
 describe('Safe guards', () => {
   it.each([
-    ['MenuButton', MenuButton],
-    ['MenuItems', MenuItems],
-    ['MenuItem', MenuItem],
+    ['headlessui-menu-button', MenuButton],
+    ['headlessui-menu-items', MenuItems],
+    ['headlessui-menu-item', MenuItem],
   ])(
-    'should error when we are using a <%s /> without a parent <Menu />',
+    'should error when we are using a <%s /> without a parent <headlessui-menu />',
     suppressConsoleLogs((name, component) => {
       expect(() => render(component)).toThrowError(
-        `<${name} /> is missing a parent <Menu /> component.`
+        `<${name} /> is missing a parent <headlessui-menu /> component.`
       )
     })
   )
 
   it('should be possible to render a Menu without crashing', () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">Item A</MenuItem>
-          <MenuItem as="a">Item B</MenuItem>
-          <MenuItem as="a">Item C</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+          <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+          <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     assertMenuButton({
@@ -94,14 +94,14 @@ describe('Rendering', () => {
   describe('Menu', () => {
     it('should be possible to render a Menu using a default render prop', async () => {
       renderTemplate(jsx`
-        <Menu v-slot="{ open }">
-          <MenuButton>Trigger {{ open ? "visible" : "hidden" }}</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu v-slot="{ open }">
+          <headlessui-menu-button>Trigger {{ open ? "visible" : "hidden" }}</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -123,16 +123,16 @@ describe('Rendering', () => {
 
     it('should be possible to render a Menu using a template `as` prop', async () => {
       renderTemplate(jsx`
-        <Menu as="template">
+        <headlessui-menu as="template">
           <div>
-            <MenuButton>Trigger</MenuButton>
-            <MenuItems>
-              <MenuItem as="a">Item A</MenuItem>
-              <MenuItem as="a">Item B</MenuItem>
-              <MenuItem as="a">Item C</MenuItem>
-            </MenuItems>
+            <headlessui-menu-button>Trigger</headlessui-menu-button>
+            <headlessui-menu-items>
+              <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+            </headlessui-menu-items>
           </div>
-        </Menu>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -157,14 +157,14 @@ describe('Rendering', () => {
 
         renderTemplate({
           template: jsx`
-              <Menu class="relative">
-                <MenuButton>Trigger</MenuButton>
-                <MenuItems>
-                  <MenuItem as="a">Item A</MenuItem>
-                  <MenuItem as="a">Item B</MenuItem>
-                  <MenuItem as="a">Item C</MenuItem>
-                </MenuItems>
-              </Menu>
+              <headlessui-menu class="relative">
+                <headlessui-menu-button>Trigger</headlessui-menu-button>
+                <headlessui-menu-items>
+                  <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+                  <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+                  <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+                </headlessui-menu-items>
+              </headlessui-menu>
             `,
           errorCaptured(err) {
             expect(err as Error).toEqual(
@@ -172,7 +172,7 @@ describe('Rendering', () => {
                 [
                   'Passing props on "template"!',
                   '',
-                  'The current component <Menu /> is rendering a "template".',
+                  'The current component <headlessui-menu /> is rendering a "template".',
                   'However we need to passthrough the following props:',
                   '  - class',
                   '',
@@ -193,16 +193,16 @@ describe('Rendering', () => {
   describe('MenuButton', () => {
     it('should be possible to render a MenuButton using a default render prop', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton v-slot="{ open }">
+        <headlessui-menu>
+          <headlessui-menu-button v-slot="{ open }">
             Trigger {{ open ? "visible" : "hidden" }}
-          </MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+          </headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -224,16 +224,16 @@ describe('Rendering', () => {
 
     it('should be possible to render a MenuButton using a template `as` prop', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton as="template" v-slot="{ open }">
+        <headlessui-menu>
+          <headlessui-menu-button as="template" v-slot="{ open }">
             <button :data-open="open">Trigger</button>
-          </MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+          </headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -254,16 +254,16 @@ describe('Rendering', () => {
     it('should be possible to render a MenuButton using a template `as` prop and a custom element', async () => {
       renderTemplate({
         template: jsx`
-          <Menu>
-            <MenuButton as="template" v-slot="{ open }">
+          <headlessui-menu>
+            <headlessui-menu-button as="template" v-slot="{ open }">
               <MyCustomButton :data-open="open">Options</MyCustomButton>
-            </MenuButton>
-            <MenuItems>
-              <MenuItem as="a">Item A</MenuItem>
-              <MenuItem as="a">Item B</MenuItem>
-              <MenuItem as="a">Item C</MenuItem>
-            </MenuItems>
-          </Menu>
+            </headlessui-menu-button>
+            <headlessui-menu-items>
+              <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+            </headlessui-menu-items>
+          </headlessui-menu>
         `,
         components: {
           MyCustomButton: defineComponent({
@@ -298,17 +298,17 @@ describe('Rendering', () => {
 
         renderTemplate({
           template: jsx`
-            <Menu>
-              <MenuButton as="template">
+            <headlessui-menu>
+              <headlessui-menu-button as="template">
                 <span>Trigger</span>
                 <svg />
-              </MenuButton>
-              <MenuItems>
-                <MenuItem as="a">Item A</MenuItem>
-                <MenuItem as="a">Item B</MenuItem>
-                <MenuItem as="a">Item C</MenuItem>
-              </MenuItems>
-            </Menu>
+              </headlessui-menu-button>
+              <headlessui-menu-items>
+                <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+                <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+                <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+              </headlessui-menu-items>
+            </headlessui-menu>
           `,
           errorCaptured(err) {
             expect(err as Error).toEqual(
@@ -316,7 +316,7 @@ describe('Rendering', () => {
                 [
                   'Passing props on "template"!',
                   '',
-                  'The current component <MenuButton /> is rendering a "template".',
+                  'The current component <headlessui-menu-button /> is rendering a "template".',
                   'However we need to passthrough the following props:',
                   '  - disabled',
                   '  - ref',
@@ -346,15 +346,15 @@ describe('Rendering', () => {
   describe('MenuItems', () => {
     it('should be possible to render MenuItems using a default render prop', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems v-slot="{ open }">
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items v-slot="{ open }">
             <span>{{ open ? "visible" : "hidden" }}</span>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -375,16 +375,16 @@ describe('Rendering', () => {
 
     it('should be possible to render MenuItems using a template `as` prop', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems as="template" v-slot="{ open }">
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items as="template" v-slot="{ open }">
             <div :data-open="open">
-              <MenuItem as="a">Item A</MenuItem>
-              <MenuItem as="a">Item B</MenuItem>
-              <MenuItem as="a">Item C</MenuItem>
+              <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item C</headlessui-menu-item>
             </div>
-          </MenuItems>
-        </Menu>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -407,14 +407,14 @@ describe('Rendering', () => {
 
       renderTemplate({
         template: jsx`
-          <Menu>
-            <MenuButton>Trigger</MenuButton>
-            <MenuItems as="template">
-              <MenuItem as="a">Item A</MenuItem>
-              <MenuItem as="a">Item B</MenuItem>
-              <MenuItem as="a">Item C</MenuItem>
-            </MenuItems>
-          </Menu>
+          <headlessui-menu>
+            <headlessui-menu-button>Trigger</headlessui-menu-button>
+            <headlessui-menu-items as="template">
+              <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+            </headlessui-menu-items>
+          </headlessui-menu>
         `,
         errorCaptured(err) {
           expect(err as Error).toEqual(
@@ -422,7 +422,7 @@ describe('Rendering', () => {
               [
                 'Passing props on "template"!',
                 '',
-                'The current component <MenuItems /> is rendering a "template".',
+                'The current component <headlessui-menu-items /> is rendering a "template".',
                 'However we need to passthrough the following props:',
                 '  - aria-activedescendant',
                 '  - aria-labelledby',
@@ -449,14 +449,14 @@ describe('Rendering', () => {
 
     it('should be possible to always render the MenuItems if we provide it a `static` prop', () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems static>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items static>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Let's verify that the Menu is already there
@@ -465,14 +465,14 @@ describe('Rendering', () => {
 
     it('should be possible to use a different render strategy for the MenuItems', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems :unmount="false">
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items :unmount="false">
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       await new Promise<void>(nextTick)
@@ -489,16 +489,16 @@ describe('Rendering', () => {
   describe('MenuItem', () => {
     it('should be possible to render MenuItem using a default render prop', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem v-slot="{ active, disabled }">
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item v-slot="{ active, disabled }">
               <span>Item A - {{ JSON.stringify({ active, disabled }) }}</span>
-            </MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+            </headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -521,20 +521,20 @@ describe('Rendering', () => {
 
     it('should be possible to render a MenuItem using a template `as` prop', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="template" v-slot="{ active, disabled }">
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="template" v-slot="{ active, disabled }">
               <a :data-active="active" :data-disabled="disabled">Item A</a>
-            </MenuItem>
-            <MenuItem as="template" v-slot="{ active, disabled }">
+            </headlessui-menu-item>
+            <headlessui-menu-item as="template" v-slot="{ active, disabled }">
               <a :data-active="active" :data-disabled="disabled">Item B</a>
-            </MenuItem>
-            <MenuItem disabled as="template" v-slot="{ active, disabled }">
+            </headlessui-menu-item>
+            <headlessui-menu-item disabled as="template" v-slot="{ active, disabled }">
               <a :data-active="active" :data-disabled="disabled">Item C</a>
-            </MenuItem>
-          </MenuItems>
-        </Menu>
+            </headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -571,17 +571,17 @@ describe('Rendering', () => {
 
       renderTemplate({
         template: jsx`
-          <Menu>
-            <MenuButton>Trigger</MenuButton>
-            <MenuItems>
-              <MenuItem as="template">
+          <headlessui-menu>
+            <headlessui-menu-button>Trigger</headlessui-menu-button>
+            <headlessui-menu-items>
+              <headlessui-menu-item as="template">
                 <span>Item A</span>
                 <svg />
-              </MenuItem>
-              <MenuItem as="a">Item B</MenuItem>
-              <MenuItem as="a">Item C</MenuItem>
-            </MenuItems>
-          </Menu>
+              </headlessui-menu-item>
+              <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+            </headlessui-menu-items>
+          </headlessui-menu>
         `,
         errorCaptured(err) {
           expect(err as Error).toEqual(
@@ -589,7 +589,7 @@ describe('Rendering', () => {
               [
                 'Passing props on "template"!',
                 '',
-                'The current component <MenuItem /> is rendering a "template".',
+                'The current component <headlessui-menu-item /> is rendering a "template".',
                 'However we need to passthrough the following props:',
                 '  - disabled',
                 '  - id',
@@ -623,14 +623,14 @@ describe('Rendering', () => {
 describe('Rendering composition', () => {
   it('should be possible to conditionally render classNames (aka className can be a function?!)', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a" :className="JSON.stringify">Item A</MenuItem>
-          <MenuItem as="a" disabled :className="JSON.stringify">Item B</MenuItem>
-          <MenuItem as="a" class="no-special-treatment">Item C</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a" :className="JSON.stringify">Item A</headlessui-menu-item>
+          <headlessui-menu-item as="a" disabled :className="JSON.stringify">Item B</headlessui-menu-item>
+          <headlessui-menu-item as="a" class="no-special-treatment">Item C</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     assertMenuButton({
@@ -686,14 +686,14 @@ describe('Rendering composition', () => {
 
       renderTemplate({
         template: jsx`
-          <Menu>
-            <MenuButton>Trigger</MenuButton>
-            <MenuItems>
-              <MenuItem :as="MyButton">Item A</MenuItem>
-              <MenuItem :as="MyButton">Item B</MenuItem>
-              <MenuItem :as="MyButton">Item C</MenuItem>
-            </MenuItems>
-          </Menu>
+          <headlessui-menu>
+            <headlessui-menu-button>Trigger</headlessui-menu-button>
+            <headlessui-menu-items>
+              <headlessui-menu-item :as="MyButton">Item A</headlessui-menu-item>
+              <headlessui-menu-item :as="MyButton">Item B</headlessui-menu-item>
+              <headlessui-menu-item :as="MyButton">Item C</headlessui-menu-item>
+            </headlessui-menu-items>
+          </headlessui-menu>
         `,
         setup: () => ({ MyButton }),
       })
@@ -720,30 +720,30 @@ describe('Rendering composition', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: jsx`
-          <Menu>
-            <MenuButton>Trigger</MenuButton>
+          <headlessui-menu>
+            <headlessui-menu-button>Trigger</headlessui-menu-button>
             <div className="outer">
-              <MenuItems>
+              <headlessui-menu-items>
                 <div className="py-1 inner">
-                  <MenuItem as="button">Item A</MenuItem>
-                  <MenuItem as="button">Item B</MenuItem>
+                  <headlessui-menu-item as="button">Item A</headlessui-menu-item>
+                  <headlessui-menu-item as="button">Item B</headlessui-menu-item>
                 </div>
                 <div className="py-1 inner">
-                  <MenuItem as="button">Item C</MenuItem>
-                  <MenuItem>
+                  <headlessui-menu-item as="button">Item C</headlessui-menu-item>
+                  <headlessui-menu-item>
                     <div>
                       <div className="outer">Item D</div>
                     </div>
-                  </MenuItem>
+                  </headlessui-menu-item>
                 </div>
                 <div className="py-1 inner">
                   <form className="inner">
-                    <MenuItem as="button">Item E</MenuItem>
+                    <headlessui-menu-item as="button">Item E</headlessui-menu-item>
                   </form>
                 </div>
-              </MenuItems>
+              </headlessui-menu-items>
             </div>
-          </Menu>
+          </headlessui-menu>
         `,
       })
 
@@ -767,14 +767,14 @@ describe('Keyboard interactions', () => {
   describe('`Enter` key', () => {
     it('should be possible to open the menu with Enter', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -808,14 +808,14 @@ describe('Keyboard interactions', () => {
 
     it('should not be possible to open the menu with Enter when the button is disabled', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton disabled>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button disabled>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -840,10 +840,10 @@ describe('Keyboard interactions', () => {
 
     it('should have no active menu item when there are no menu items at all', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems />
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items />
+        </headlessui-menu>
       `)
 
       assertMenu({ state: MenuState.InvisibleUnmounted })
@@ -860,14 +860,14 @@ describe('Keyboard interactions', () => {
 
     it('should focus the first non disabled menu item when opening with Enter', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -890,14 +890,14 @@ describe('Keyboard interactions', () => {
 
     it('should focus the first non disabled menu item when opening with Enter (jump over multiple disabled ones)', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -920,14 +920,14 @@ describe('Keyboard interactions', () => {
 
     it('should have no active menu item upon Enter key press, when there are no non-disabled menu items', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -947,14 +947,14 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to close the menu with Enter when there is no active menuitem', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -984,14 +984,14 @@ describe('Keyboard interactions', () => {
       let clickHandler = jest.fn()
       renderTemplate({
         template: jsx`
-          <Menu>
-            <MenuButton>Trigger</MenuButton>
-            <MenuItems>
-              <MenuItem as="a" @click="clickHandler">Item A</MenuItem>
-              <MenuItem as="a">Item B</MenuItem>
-              <MenuItem as="a">Item C</MenuItem>
-            </MenuItems>
-          </Menu>
+          <headlessui-menu>
+            <headlessui-menu-button>Trigger</headlessui-menu-button>
+            <headlessui-menu-items>
+              <headlessui-menu-item as="a" @click="clickHandler">Item A</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+            </headlessui-menu-items>
+          </headlessui-menu>
         `,
         setup: () => ({ clickHandler }),
       })
@@ -1032,18 +1032,18 @@ describe('Keyboard interactions', () => {
 
     renderTemplate({
       template: jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="button" @click="clickHandler">
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="button" @click="clickHandler">
               Item B
-            </MenuItem>
-            <MenuItem>
+            </headlessui-menu-item>
+            <headlessui-menu-item>
               <button @click="clickHandler">Item C</button>
-            </MenuItem>
-          </MenuItems>
-        </Menu>
+            </headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `,
       setup: () => ({ clickHandler }),
     })
@@ -1096,14 +1096,14 @@ describe('Keyboard interactions', () => {
   describe('`Space` key', () => {
     it('should be possible to open the menu with Space', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1135,14 +1135,14 @@ describe('Keyboard interactions', () => {
 
     it('should not be possible to open the menu with Space when the button is disabled', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton disabled>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button disabled>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1167,10 +1167,10 @@ describe('Keyboard interactions', () => {
 
     it('should have no active menu item when there are no menu items at all', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems />
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items />
+        </headlessui-menu>
       `)
 
       assertMenu({ state: MenuState.InvisibleUnmounted })
@@ -1187,14 +1187,14 @@ describe('Keyboard interactions', () => {
 
     it('should focus the first non disabled menu item when opening with Space', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1217,14 +1217,14 @@ describe('Keyboard interactions', () => {
 
     it('should focus the first non disabled menu item when opening with Space (jump over multiple disabled ones)', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1247,14 +1247,14 @@ describe('Keyboard interactions', () => {
 
     it('should have no active menu item upon Space key press, when there are no non-disabled menu items', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1276,14 +1276,14 @@ describe('Keyboard interactions', () => {
       'should be possible to close the menu with Space when there is no active menuitem',
       suppressConsoleLogs(async () => {
         renderTemplate(jsx`
-          <Menu>
-            <MenuButton>Trigger</MenuButton>
-            <MenuItems>
-              <MenuItem as="a">Item A</MenuItem>
-              <MenuItem as="a">Item B</MenuItem>
-              <MenuItem as="a">Item C</MenuItem>
-            </MenuItems>
-          </Menu>
+          <headlessui-menu>
+            <headlessui-menu-button>Trigger</headlessui-menu-button>
+            <headlessui-menu-items>
+              <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+              <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+            </headlessui-menu-items>
+          </headlessui-menu>
         `)
 
         assertMenuButton({
@@ -1316,14 +1316,14 @@ describe('Keyboard interactions', () => {
         let clickHandler = jest.fn()
         renderTemplate({
           template: jsx`
-            <Menu>
-              <MenuButton>Trigger</MenuButton>
-              <MenuItems>
-                <MenuItem as="a" @click="clickHandler">Item A</MenuItem>
-                <MenuItem as="a">Item B</MenuItem>
-                <MenuItem as="a">Item C</MenuItem>
-              </MenuItems>
-            </Menu>
+            <headlessui-menu>
+              <headlessui-menu-button>Trigger</headlessui-menu-button>
+              <headlessui-menu-items>
+                <headlessui-menu-item as="a" @click="clickHandler">Item A</headlessui-menu-item>
+                <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+                <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+              </headlessui-menu-items>
+            </headlessui-menu>
           `,
           setup: () => ({ clickHandler }),
         })
@@ -1363,14 +1363,14 @@ describe('Keyboard interactions', () => {
   describe('`Escape` key', () => {
     it('should be possible to close an open menu with Escape', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Focus the button
@@ -1402,14 +1402,14 @@ describe('Keyboard interactions', () => {
   describe('`Tab` key', () => {
     it('should focus trap when we use Tab', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1448,14 +1448,14 @@ describe('Keyboard interactions', () => {
 
     it('should focus trap when we use Shift+Tab', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1496,14 +1496,14 @@ describe('Keyboard interactions', () => {
   describe('`ArrowDown` key', () => {
     it('should be possible to open the menu with ArrowDown', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1537,14 +1537,14 @@ describe('Keyboard interactions', () => {
 
     it('should not be possible to open the menu with ArrowDown when the button is disabled', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton disabled>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button disabled>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1569,10 +1569,10 @@ describe('Keyboard interactions', () => {
 
     it('should have no active menu item when there are no menu items at all', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems />
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items />
+        </headlessui-menu>
       `)
 
       assertMenu({ state: MenuState.InvisibleUnmounted })
@@ -1589,14 +1589,14 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use ArrowDown to navigate the menu items', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1632,14 +1632,14 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use ArrowDown to navigate the menu items and skip the first disabled one', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1667,14 +1667,14 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use ArrowDown to navigate the menu items and jump to the first non-disabled one', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1700,14 +1700,14 @@ describe('Keyboard interactions', () => {
   describe('`ArrowUp` key', () => {
     it('should be possible to open the menu with ArrowUp and the last item should be active', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1741,10 +1741,10 @@ describe('Keyboard interactions', () => {
 
     it('should have no active menu item when there are no menu items at all', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems />
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items />
+        </headlessui-menu>
       `)
 
       assertMenu({ state: MenuState.InvisibleUnmounted })
@@ -1761,14 +1761,14 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use ArrowUp to navigate the menu items and jump to the first non-disabled one', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1792,14 +1792,14 @@ describe('Keyboard interactions', () => {
 
     it('should not be possible to navigate up or down if there is only a single non-disabled item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1831,14 +1831,14 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use ArrowUp to navigate the menu items', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -1884,14 +1884,14 @@ describe('Keyboard interactions', () => {
   describe('`End` key', () => {
     it('should be possible to use the End key to go to the last menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Focus the button
@@ -1912,15 +1912,15 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use the End key to go to the last non disabled menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-            <MenuItem as="a" disabled>Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Focus the button
@@ -1941,15 +1941,15 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use the End key to go to the first menu item if that is the only non-disabled menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-            <MenuItem as="a" disabled>Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Open menu
@@ -1967,15 +1967,15 @@ describe('Keyboard interactions', () => {
 
     it('should have no active menu item upon End key press, when there are no non-disabled menu items', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-            <MenuItem as="a" disabled>Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Open menu
@@ -1994,14 +1994,14 @@ describe('Keyboard interactions', () => {
   describe('`PageDown` key', () => {
     it('should be possible to use the PageDown key to go to the last menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Focus the button
@@ -2022,15 +2022,15 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use the PageDown key to go to the last non disabled menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-            <MenuItem as="a" disabled>Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Focus the button
@@ -2051,15 +2051,15 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use the PageDown key to go to the first menu item if that is the only non-disabled menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-            <MenuItem as="a" disabled>Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Open menu
@@ -2077,15 +2077,15 @@ describe('Keyboard interactions', () => {
 
     it('should have no active menu item upon PageDown key press, when there are no non-disabled menu items', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-            <MenuItem as="a" disabled>Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Open menu
@@ -2104,14 +2104,14 @@ describe('Keyboard interactions', () => {
   describe('`Home` key', () => {
     it('should be possible to use the Home key to go to the first menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Focus the button
@@ -2132,15 +2132,15 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use the Home key to go to the first non disabled menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-            <MenuItem as="a">Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Open menu
@@ -2160,15 +2160,15 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use the Home key to go to the last menu item if that is the only non-disabled menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-            <MenuItem as="a">Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Open menu
@@ -2186,15 +2186,15 @@ describe('Keyboard interactions', () => {
 
     it('should have no active menu item upon Home key press, when there are no non-disabled menu items', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-            <MenuItem as="a" disabled>Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Open menu
@@ -2213,14 +2213,14 @@ describe('Keyboard interactions', () => {
   describe('`PageUp` key', () => {
     it('should be possible to use the PageUp key to go to the first menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Focus the button
@@ -2241,15 +2241,15 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use the PageUp key to go to the first non disabled menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-            <MenuItem as="a">Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Open menu
@@ -2269,15 +2269,15 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to use the PageUp key to go to the last menu item if that is the only non-disabled menu item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-            <MenuItem as="a">Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Open menu
@@ -2295,15 +2295,15 @@ describe('Keyboard interactions', () => {
 
     it('should have no active menu item upon PageUp key press, when there are no non-disabled menu items', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" disabled>Item A</MenuItem>
-            <MenuItem as="a" disabled>Item B</MenuItem>
-            <MenuItem as="a" disabled>Item C</MenuItem>
-            <MenuItem as="a" disabled>Item D</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" disabled>Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item C</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>Item D</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Open menu
@@ -2322,14 +2322,14 @@ describe('Keyboard interactions', () => {
   describe('`Any` key aka search', () => {
     it('should be possible to type a full word that has a perfect match', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">alice</MenuItem>
-            <MenuItem as="a">bob</MenuItem>
-            <MenuItem as="a">charlie</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">alice</headlessui-menu-item>
+            <headlessui-menu-item as="a">bob</headlessui-menu-item>
+            <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Open menu
@@ -2352,14 +2352,14 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to type a partial of a word', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">alice</MenuItem>
-            <MenuItem as="a">bob</MenuItem>
-            <MenuItem as="a">charlie</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">alice</headlessui-menu-item>
+            <headlessui-menu-item as="a">bob</headlessui-menu-item>
+            <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Focus the button
@@ -2390,14 +2390,14 @@ describe('Keyboard interactions', () => {
       'should be possible to type words with spaces',
       suppressConsoleLogs(async () => {
         renderTemplate(jsx`
-          <Menu>
-            <MenuButton>Trigger</MenuButton>
-            <MenuItems>
-              <MenuItem as="a">value a</MenuItem>
-              <MenuItem as="a">value b</MenuItem>
-              <MenuItem as="a">value c</MenuItem>
-            </MenuItems>
-          </Menu>
+          <headlessui-menu>
+            <headlessui-menu-button>Trigger</headlessui-menu-button>
+            <headlessui-menu-items>
+              <headlessui-menu-item as="a">value a</headlessui-menu-item>
+              <headlessui-menu-item as="a">value b</headlessui-menu-item>
+              <headlessui-menu-item as="a">value c</headlessui-menu-item>
+            </headlessui-menu-items>
+          </headlessui-menu>
         `)
 
         // Focus the button
@@ -2427,14 +2427,14 @@ describe('Keyboard interactions', () => {
 
     it('should not be possible to search for a disabled item', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">alice</MenuItem>
-            <MenuItem as="a" disabled>bob</MenuItem>
-            <MenuItem as="a">charlie</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">alice</headlessui-menu-item>
+            <headlessui-menu-item as="a" disabled>bob</headlessui-menu-item>
+            <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Focus the button
@@ -2457,14 +2457,14 @@ describe('Keyboard interactions', () => {
 
     it('should be possible to search for a word (case insensitive)', async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">alice</MenuItem>
-            <MenuItem as="a">bob</MenuItem>
-            <MenuItem as="a">charlie</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">alice</headlessui-menu-item>
+            <headlessui-menu-item as="a">bob</headlessui-menu-item>
+            <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       // Focus the button
@@ -2490,14 +2490,14 @@ describe('Keyboard interactions', () => {
 describe('Mouse interactions', () => {
   it('should be possible to open a menu on click', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">Item A</MenuItem>
-          <MenuItem as="a">Item B</MenuItem>
-          <MenuItem as="a">Item C</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+          <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+          <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     assertMenuButton({
@@ -2527,14 +2527,14 @@ describe('Mouse interactions', () => {
     'should not be possible to open a menu on right click',
     suppressConsoleLogs(async () => {
       renderTemplate(jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">Item A</MenuItem>
-            <MenuItem as="a">Item B</MenuItem>
-            <MenuItem as="a">Item C</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+            <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `)
 
       assertMenuButton({
@@ -2553,14 +2553,14 @@ describe('Mouse interactions', () => {
 
   it('should not be possible to open a menu on click when the button is disabled', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton disabled>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">Item A</MenuItem>
-          <MenuItem as="a">Item B</MenuItem>
-          <MenuItem as="a">Item C</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button disabled>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+          <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+          <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     assertMenuButton({
@@ -2582,14 +2582,14 @@ describe('Mouse interactions', () => {
 
   it('should be possible to close a menu on click', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">Item A</MenuItem>
-          <MenuItem as="a">Item B</MenuItem>
-          <MenuItem as="a">Item C</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">Item A</headlessui-menu-item>
+          <headlessui-menu-item as="a">Item B</headlessui-menu-item>
+          <headlessui-menu-item as="a">Item C</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -2608,14 +2608,14 @@ describe('Mouse interactions', () => {
 
   it('should be a no-op when we click outside of a closed menu', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a">bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a">bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Verify that the window is closed
@@ -2630,14 +2630,14 @@ describe('Mouse interactions', () => {
 
   it('should be possible to click outside of the menu which should close the menu', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a">bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a">bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -2656,14 +2656,14 @@ describe('Mouse interactions', () => {
 
   it('should be possible to click outside of the menu which should close the menu (even if we press the menu button)', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a">bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a">bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -2685,23 +2685,23 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(jsx`
         <div>
-          <Menu>
-            <MenuButton>Trigger</MenuButton>
-            <MenuItems>
-              <MenuItem as="a">alice</MenuItem>
-              <MenuItem as="a">bob</MenuItem>
-              <MenuItem as="a">charlie</MenuItem>
-            </MenuItems>
-          </Menu>
+          <headlessui-menu>
+            <headlessui-menu-button>Trigger</headlessui-menu-button>
+            <headlessui-menu-items>
+              <headlessui-menu-item as="a">alice</headlessui-menu-item>
+              <headlessui-menu-item as="a">bob</headlessui-menu-item>
+              <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+            </headlessui-menu-items>
+          </headlessui-menu>
 
-          <Menu>
-            <MenuButton>Trigger</MenuButton>
-            <MenuItems>
-              <MenuItem as="a">alice</MenuItem>
-              <MenuItem as="a">bob</MenuItem>
-              <MenuItem as="a">charlie</MenuItem>
-            </MenuItems>
-          </Menu>
+          <headlessui-menu>
+            <headlessui-menu-button>Trigger</headlessui-menu-button>
+            <headlessui-menu-items>
+              <headlessui-menu-item as="a">alice</headlessui-menu-item>
+              <headlessui-menu-item as="a">bob</headlessui-menu-item>
+              <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+            </headlessui-menu-items>
+          </headlessui-menu>
         </div>
       `)
 
@@ -2726,14 +2726,14 @@ describe('Mouse interactions', () => {
 
   it('should be possible to hover an item and make it active', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a">bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a">bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -2755,14 +2755,14 @@ describe('Mouse interactions', () => {
 
   it('should make a menu item active when you move the mouse over it', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a">bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a">bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -2776,14 +2776,14 @@ describe('Mouse interactions', () => {
 
   it('should be a no-op when we move the mouse and the menu item is already active', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a">bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a">bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -2803,14 +2803,14 @@ describe('Mouse interactions', () => {
 
   it('should be a no-op when we move the mouse and the menu item is disabled', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a" disabled>bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a" disabled>bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -2824,14 +2824,14 @@ describe('Mouse interactions', () => {
 
   it('should not be possible to hover an item that is disabled', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a" disabled>bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a" disabled>bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -2848,14 +2848,14 @@ describe('Mouse interactions', () => {
 
   it('should be possible to mouse leave an item and make it inactive', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a">bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a">bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -2887,14 +2887,14 @@ describe('Mouse interactions', () => {
 
   it('should be possible to mouse leave a disabled item and be a no-op', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a" disabled>bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a" disabled>bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -2914,14 +2914,14 @@ describe('Mouse interactions', () => {
     let clickHandler = jest.fn()
     renderTemplate({
       template: jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">alice</MenuItem>
-            <MenuItem as="a" @click="clickHandler">bob</MenuItem>
-            <MenuItem as="a">charlie</MenuItem>
-          </MenuItems>
-        </Menu>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">alice</headlessui-menu-item>
+            <headlessui-menu-item as="a" @click="clickHandler">bob</headlessui-menu-item>
+            <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `,
       setup: () => ({ clickHandler }),
     })
@@ -2943,16 +2943,16 @@ describe('Mouse interactions', () => {
     let clickHandler = jest.fn()
     renderTemplate({
       template: jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a">alice</MenuItem>
-            <MenuItem as="button" @click="clickHandler">bob</MenuItem>
-            <MenuItem>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a">alice</headlessui-menu-item>
+            <headlessui-menu-item as="button" @click="clickHandler">bob</headlessui-menu-item>
+            <headlessui-menu-item>
               <button @click="clickHandler">charlie</button>
-            </MenuItem>
-          </MenuItems>
-        </Menu>
+            </headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `,
       setup: () => ({ clickHandler }),
     })
@@ -2981,14 +2981,14 @@ describe('Mouse interactions', () => {
 
   it('should be possible to click a disabled menu item, which is a no-op', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a" disabled>bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a" disabled>bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -3004,14 +3004,14 @@ describe('Mouse interactions', () => {
 
   it('should be possible focus a menu item, so that it becomes active', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a">bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a">bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -3030,14 +3030,14 @@ describe('Mouse interactions', () => {
 
   it('should not be possible to focus a menu item which is disabled', async () => {
     renderTemplate(jsx`
-      <Menu>
-        <MenuButton>Trigger</MenuButton>
-        <MenuItems>
-          <MenuItem as="a">alice</MenuItem>
-          <MenuItem as="a" disabled>bob</MenuItem>
-          <MenuItem as="a">charlie</MenuItem>
-        </MenuItems>
-      </Menu>
+      <headlessui-menu>
+        <headlessui-menu-button>Trigger</headlessui-menu-button>
+        <headlessui-menu-items>
+          <headlessui-menu-item as="a">alice</headlessui-menu-item>
+          <headlessui-menu-item as="a" disabled>bob</headlessui-menu-item>
+          <headlessui-menu-item as="a">charlie</headlessui-menu-item>
+        </headlessui-menu-items>
+      </headlessui-menu>
     `)
 
     // Open menu
@@ -3056,18 +3056,18 @@ describe('Mouse interactions', () => {
 
     renderTemplate({
       template: jsx`
-        <Menu>
-          <MenuButton>Trigger</MenuButton>
-          <MenuItems>
-            <MenuItem as="a" @click="clickHandler">alice</MenuItem>
-            <MenuItem as="a" @click="clickHandler" disabled>
+        <headlessui-menu>
+          <headlessui-menu-button>Trigger</headlessui-menu-button>
+          <headlessui-menu-items>
+            <headlessui-menu-item as="a" @click="clickHandler">alice</headlessui-menu-item>
+            <headlessui-menu-item as="a" @click="clickHandler" disabled>
               bob
-            </MenuItem>
-            <MenuItem>
+            </headlessui-menu-item>
+            <headlessui-menu-item>
               <button @click="clickHandler">charlie</button>
-            </MenuItem>
-          </MenuItems>
-        </Menu>
+            </headlessui-menu-item>
+          </headlessui-menu-items>
+        </headlessui-menu>
       `,
       setup: () => ({ clickHandler }),
     })

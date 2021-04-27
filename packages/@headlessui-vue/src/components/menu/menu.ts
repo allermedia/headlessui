@@ -49,13 +49,13 @@ type StateDefinition = {
   unregisterItem(id: string): void
 }
 
-let MenuContext = Symbol('MenuContext') as InjectionKey<StateDefinition>
+let MenuContext = Symbol('headlessui-menu-context') as InjectionKey<StateDefinition>
 
 function useMenuContext(component: string) {
   let context = inject(MenuContext, null)
 
   if (context === null) {
-    let err = new Error(`<${component} /> is missing a parent <Menu /> component.`)
+    let err = new Error(`<${component} /> is missing a parent <headlessui-menu /> component.`)
     if (Error.captureStackTrace) Error.captureStackTrace(err, useMenuContext)
     throw err
   }
@@ -64,7 +64,7 @@ function useMenuContext(component: string) {
 }
 
 export let Menu = defineComponent({
-  name: 'Menu',
+  name: 'headlessui-menu',
   props: { as: { type: [Object, String], default: 'template' } },
   setup(props, { slots, attrs }) {
     let menuState = ref<StateDefinition['menuState']['value']>(MenuStates.Closed)
@@ -156,19 +156,19 @@ export let Menu = defineComponent({
 
     return () => {
       let slot = { open: menuState.value === MenuStates.Open }
-      return render({ props, slot, slots, attrs, name: 'Menu' })
+      return render({ props, slot, slots, attrs, name: 'headlessui-menu' })
     }
   },
 })
 
 export let MenuButton = defineComponent({
-  name: 'MenuButton',
+  name: 'headlessui-menu-button',
   props: {
     disabled: { type: Boolean, default: false },
     as: { type: [Object, String], default: 'button' },
   },
   render() {
-    let api = useMenuContext('MenuButton')
+    let api = useMenuContext('headlessui-menu-button')
 
     let slot = { open: api.menuState.value === MenuStates.Open }
     let propsWeControl = {
@@ -188,11 +188,11 @@ export let MenuButton = defineComponent({
       slot,
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'MenuButton',
+      name: 'headlessui-menu-button',
     })
   },
   setup(props) {
-    let api = useMenuContext('MenuButton')
+    let api = useMenuContext('headlessui-menu-button')
     let id = `headlessui-menu-button-${useId()}`
 
     function handleKeyDown(event: KeyboardEvent) {
@@ -252,14 +252,14 @@ export let MenuButton = defineComponent({
 })
 
 export let MenuItems = defineComponent({
-  name: 'MenuItems',
+  name: 'headlessui-menu-items',
   props: {
     as: { type: [Object, String], default: 'div' },
     static: { type: Boolean, default: false },
     unmount: { type: Boolean, default: true },
   },
   render() {
-    let api = useMenuContext('MenuItems')
+    let api = useMenuContext('headlessui-menu-items')
 
     let slot = { open: api.menuState.value === MenuStates.Open }
     let propsWeControl = {
@@ -284,11 +284,11 @@ export let MenuItems = defineComponent({
       slots: this.$slots,
       features: Features.RenderStrategy | Features.Static,
       visible: slot.open,
-      name: 'MenuItems',
+      name: 'headlessui-menu-items',
     })
   },
   setup() {
-    let api = useMenuContext('MenuItems')
+    let api = useMenuContext('headlessui-menu-items')
     let id = `headlessui-menu-items-${useId()}`
     let searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null)
 
@@ -389,7 +389,7 @@ export let MenuItems = defineComponent({
 })
 
 export let MenuItem = defineComponent({
-  name: 'MenuItem',
+  name: 'headlessui-menu-item',
   props: {
     as: { type: [Object, String], default: 'template' },
     disabled: { type: Boolean, default: false },
@@ -397,7 +397,7 @@ export let MenuItem = defineComponent({
     className: { type: [String, Function], required: false },
   },
   setup(props, { slots, attrs }) {
-    let api = useMenuContext('MenuItem')
+    let api = useMenuContext('headlessui-menu-item')
     let id = `headlessui-menu-item-${useId()}`
     let { disabled, class: defaultClass, className = defaultClass } = props
 
@@ -469,7 +469,7 @@ export let MenuItem = defineComponent({
         slot,
         attrs,
         slots,
-        name: 'MenuItem',
+        name: 'headlessui-menu-item',
       })
     }
   },

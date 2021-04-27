@@ -52,14 +52,14 @@ function renderTemplate(input: string | Partial<Parameters<typeof defineComponen
 
 describe('Safe guards', () => {
   it.each([
-    ['PopoverButton', PopoverButton],
-    ['PopoverPanel', PopoverPanel],
-    ['PopoverOverlay', PopoverOverlay],
+    ['headlessui-popover-button', PopoverButton],
+    ['headlessui-popover-panel', PopoverPanel],
+    ['headlessui-popover-overlay', PopoverOverlay],
   ])(
-    'should error when we are using a <%s /> without a parent <Popover />',
+    'should error when we are using a <%s /> without a parent <headlessui-popover />',
     suppressConsoleLogs((name, Component) => {
       expect(() => render(Component)).toThrowError(
-        `<${name} /> is missing a parent <Popover /> component.`
+        `<${name} /> is missing a parent <headlessui-popover /> component.`
       )
     })
   )
@@ -69,10 +69,10 @@ describe('Safe guards', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Popover>
-            <PopoverButton>Trigger</PopoverButton>
-            <PopoverPanel>Contents</PopoverPanel>
-          </Popover>
+          <headlessui-popover>
+            <headlessui-popover-button>Trigger</headlessui-popover-button>
+            <headlessui-popover-panel>Contents</headlessui-popover-panel>
+          </headlessui-popover>
         `
       )
 
@@ -92,16 +92,16 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <PopoverGroup>
-              <Popover>
-                <PopoverButton>Trigger 1</PopoverButton>
-                <PopoverPanel>Panel 1</PopoverPanel>
-              </Popover>
-              <Popover>
-                <PopoverButton>Trigger 2</PopoverButton>
-                <PopoverPanel>Panel 2</PopoverPanel>
-              </Popover>
-            </PopoverGroup>
+            <headlessui-popoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                <headlessui-popover-panel>Panel 1</headlessui-popover-panel>
+              </headlessui-popover>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 2</headlessui-popover-button>
+                <headlessui-popover-panel>Panel 2</headlessui-popover-panel>
+              </headlessui-popover>
+            </headlessui-popoverGroup>
           `
         )
 
@@ -136,10 +136,12 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover v-slot="{ open }">
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel>Panel is: {{open ? 'open' : 'closed'}}</PopoverPanel>
-            </Popover>
+            <headlessui-popover v-slot="{ open }">
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel
+                >Panel is: {{open ? 'open' : 'closed'}}</headlessui-popover-panel
+              >
+            </headlessui-popover>
           `
         )
 
@@ -166,10 +168,12 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton v-slot="slot">{{JSON.stringify(slot)}}</PopoverButton>
-              <PopoverPanel></PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button v-slot="slot"
+                >{{JSON.stringify(slot)}}</headlessui-popover-button
+              >
+              <headlessui-popover-panel></headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -196,12 +200,12 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton as="div" role="button" v-slot="slot">
+            <headlessui-popover>
+              <headlessui-popover-button as="div" role="button" v-slot="slot">
                 {{JSON.stringify(slot)}}
-              </PopoverButton>
-              <PopoverPanel />
-            </Popover>
+              </headlessui-popover-button>
+              <headlessui-popover-panel />
+            </headlessui-popover>
           `
         )
 
@@ -230,10 +234,12 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel v-slot="slot">{{JSON.stringify(slot)}}</PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel v-slot="slot"
+                >{{JSON.stringify(slot)}}</headlessui-popover-panel
+              >
+            </headlessui-popover>
           `
         )
 
@@ -259,10 +265,10 @@ describe('Rendering', () => {
     it('should be possible to always render the PopoverPanel if we provide it a `static` prop', () => {
       renderTemplate(
         html`
-          <Popover>
-            <PopoverButton>Trigger</PopoverButton>
-            <PopoverPanel static>Contents</PopoverPanel>
-          </Popover>
+          <headlessui-popover>
+            <headlessui-popover-button>Trigger</headlessui-popover-button>
+            <headlessui-popover-panel static>Contents</headlessui-popover-panel>
+          </headlessui-popover>
         `
       )
 
@@ -273,10 +279,10 @@ describe('Rendering', () => {
     it('should be possible to use a different render strategy for the PopoverPanel', async () => {
       renderTemplate(
         html`
-          <Popover>
-            <PopoverButton>Trigger</PopoverButton>
-            <PopoverPanel :unmount="false">Contents</PopoverPanel>
-          </Popover>
+          <headlessui-popover>
+            <headlessui-popover-button>Trigger</headlessui-popover-button>
+            <headlessui-popover-panel :unmount="false">Contents</headlessui-popover-panel>
+          </headlessui-popover>
         `
       )
 
@@ -306,12 +312,12 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel focus>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel focus>
                 <a href="/">Link 1</a>
-              </PopoverPanel>
-            </Popover>
+              </headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -335,12 +341,12 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel focus>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel focus>
                 <a href="/">Link 1</a>
-              </PopoverPanel>
-            </Popover>
+              </headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -371,15 +377,15 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel focus>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel focus>
                 <a href="/" style="display:none">
                   Link 1
                 </a>
                 <a href="/">Link 2</a>
-              </PopoverPanel>
-            </Popover>
+              </headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -403,12 +409,12 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel focus :unmount="false">
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel focus :unmount="false">
                 <a href="/">Link 1</a>
-              </PopoverPanel>
-            </Popover>
+              </headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -436,10 +442,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel>Contents</PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel>Contents</headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -473,10 +479,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton disabled>Trigger</PopoverButton>
-              <PopoverPanel>Content</PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button disabled>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel>Content</headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -506,10 +512,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel>Contents</PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel>Contents</headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -546,16 +552,16 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <PopoverGroup>
-              <Popover>
-                <PopoverButton>Trigger 1</PopoverButton>
-                <PopoverPanel>Panel 1</PopoverPanel>
-              </Popover>
-              <Popover>
-                <PopoverButton>Trigger 2</PopoverButton>
-                <PopoverPanel>Panel 2</PopoverPanel>
-              </Popover>
-            </PopoverGroup>
+            <headlessui-popoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                <headlessui-popover-panel>Panel 1</headlessui-popover-panel>
+              </headlessui-popover>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 2</headlessui-popover-button>
+                <headlessui-popover-panel>Panel 2</headlessui-popover-panel>
+              </headlessui-popover>
+            </headlessui-popoverGroup>
           `
         )
 
@@ -587,12 +593,12 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Open</PopoverButton>
-              <PopoverPanel>
-                <PopoverButton>Close</PopoverButton>
-              </PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button>Open</headlessui-popover-button>
+              <headlessui-popover-panel>
+                <headlessui-popover-button>Close</headlessui-popover-button>
+              </headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -623,10 +629,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel>Contents</PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel>Contents</headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -658,12 +664,12 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel>
                 <a href="/">Link</a>
-              </PopoverPanel>
-            </Popover>
+              </headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -701,17 +707,17 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <PopoverGroup>
-              <Popover>
-                <PopoverButton>Trigger 1</PopoverButton>
-                <PopoverPanel>Panel 1</PopoverPanel>
-              </Popover>
+            <headlessui-popoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                <headlessui-popover-panel>Panel 1</headlessui-popover-panel>
+              </headlessui-popover>
 
-              <Popover>
-                <PopoverButton>Trigger 2</PopoverButton>
-                <PopoverPanel>Panel 2</PopoverPanel>
-              </Popover>
-            </PopoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 2</headlessui-popover-button>
+                <headlessui-popover-panel>Panel 2</headlessui-popover-panel>
+              </headlessui-popover>
+            </headlessui-popoverGroup>
           `
         )
 
@@ -754,20 +760,20 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <PopoverGroup>
-              <Popover>
-                <PopoverButton>Trigger 1</PopoverButton>
-                <PopoverPanel>
+            <headlessui-popoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                <headlessui-popover-panel>
                   <a href="/">Link 1</a>
                   <a href="/">Link 2</a>
-                </PopoverPanel>
-              </Popover>
+                </headlessui-popover-panel>
+              </headlessui-popover>
 
-              <Popover>
-                <PopoverButton>Trigger 2</PopoverButton>
-                <PopoverPanel>Panel 2</PopoverPanel>
-              </Popover>
-            </PopoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 2</headlessui-popover-button>
+                <headlessui-popover-panel>Panel 2</headlessui-popover-panel>
+              </headlessui-popover>
+            </headlessui-popoverGroup>
           `
         )
 
@@ -802,22 +808,22 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <PopoverGroup>
-              <Popover>
-                <PopoverButton>Trigger 1</PopoverButton>
-                <PopoverPanel>
+            <headlessui-popoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                <headlessui-popover-panel>
                   <a href="/">Link 1</a>
                   <a href="/">Link 2</a>
-                </PopoverPanel>
-              </Popover>
+                </headlessui-popover-panel>
+              </headlessui-popover>
 
               <a href="/">Link in between</a>
 
-              <Popover>
-                <PopoverButton>Trigger 2</PopoverButton>
-                <PopoverPanel>Panel 2</PopoverPanel>
-              </Popover>
-            </PopoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 2</headlessui-popover-button>
+                <headlessui-popover-panel>Panel 2</headlessui-popover-panel>
+              </headlessui-popover>
+            </headlessui-popoverGroup>
           `
         )
 
@@ -853,23 +859,23 @@ describe('Keyboard interactions', () => {
         renderTemplate(
           html`
             <div>
-              <PopoverGroup>
-                <Popover>
-                  <PopoverButton>Trigger 1</PopoverButton>
-                  <PopoverPanel>
+              <headlessui-popoverGroup>
+                <headlessui-popover>
+                  <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                  <headlessui-popover-panel>
                     <a href="/">Link 1</a>
                     <a href="/">Link 2</a>
-                  </PopoverPanel>
-                </Popover>
+                  </headlessui-popover-panel>
+                </headlessui-popover>
 
-                <Popover>
-                  <PopoverButton>Trigger 2</PopoverButton>
-                  <PopoverPanel>
+                <headlessui-popover>
+                  <headlessui-popover-button>Trigger 2</headlessui-popover-button>
+                  <headlessui-popover-panel>
                     <a href="/">Link 3</a>
                     <a href="/">Link 4</a>
-                  </PopoverPanel>
-                </Popover>
-              </PopoverGroup>
+                  </headlessui-popover-panel>
+                </headlessui-popover>
+              </headlessui-popoverGroup>
 
               <a href="/">Next</a>
             </div>
@@ -919,13 +925,13 @@ describe('Keyboard interactions', () => {
         renderTemplate(
           html`
             <div>
-              <Popover>
-                <PopoverButton>Trigger 1</PopoverButton>
-                <PopoverPanel>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                <headlessui-popover-panel>
                   <a href="/">Link 1</a>
                   <a href="/">Link 2</a>
-                </PopoverPanel>
-              </Popover>
+                </headlessui-popover-panel>
+              </headlessui-popover>
 
               <a href="/">Next</a>
             </div>
@@ -965,13 +971,13 @@ describe('Keyboard interactions', () => {
           html`
             <div>
               <a href="/">Previous</a>
-              <Popover>
-                <PopoverButton>Trigger</PopoverButton>
-                <PopoverPanel focus>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger</headlessui-popover-button>
+                <headlessui-popover-panel focus>
                   <a href="/">Link 1</a>
                   <a href="/">Link 2</a>
-                </PopoverPanel>
-              </Popover>
+                </headlessui-popover-panel>
+              </headlessui-popover>
               <a href="/">Next</a>
             </div>
           `
@@ -1002,15 +1008,15 @@ describe('Keyboard interactions', () => {
           html`
             <div>
               <a href="/">Previous</a>
-              <Popover>
-                <PopoverButton>Trigger</PopoverButton>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger</headlessui-popover-button>
                 <Portal>
-                  <PopoverPanel focus>
+                  <headlessui-popover-panel focus>
                     <a href="/">Link 1</a>
                     <a href="/">Link 2</a>
-                  </PopoverPanel>
+                  </headlessui-popover-panel>
                 </Portal>
-              </Popover>
+              </headlessui-popover>
               <a href="/">Next</a>
             </div>
           `
@@ -1049,15 +1055,15 @@ describe('Keyboard interactions', () => {
           html`
             <div>
               <a href="/">Previous</a>
-              <Popover>
-                <PopoverButton>Trigger</PopoverButton>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger</headlessui-popover-button>
                 <Portal>
-                  <PopoverPanel focus>
+                  <headlessui-popover-panel focus>
                     <a href="/">Link 1</a>
                     <a href="/">Link 2</a>
-                  </PopoverPanel>
+                  </headlessui-popover-panel>
                 </Portal>
-              </Popover>
+              </headlessui-popover>
             </div>
           `
         )
@@ -1098,23 +1104,23 @@ describe('Keyboard interactions', () => {
             <div>
               <a href="/">Previous</a>
 
-              <PopoverGroup>
-                <Popover>
-                  <PopoverButton>Trigger 1</PopoverButton>
-                  <PopoverPanel>
+              <headlessui-popoverGroup>
+                <headlessui-popover>
+                  <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                  <headlessui-popover-panel>
                     <a href="/">Link 1</a>
                     <a href="/">Link 2</a>
-                  </PopoverPanel>
-                </Popover>
+                  </headlessui-popover-panel>
+                </headlessui-popover>
 
-                <Popover>
-                  <PopoverButton>Trigger 2</PopoverButton>
-                  <PopoverPanel>
+                <headlessui-popover>
+                  <headlessui-popover-button>Trigger 2</headlessui-popover-button>
+                  <headlessui-popover-panel>
                     <a href="/">Link 3</a>
                     <a href="/">Link 4</a>
-                  </PopoverPanel>
-                </Popover>
-              </PopoverGroup>
+                  </headlessui-popover-panel>
+                </headlessui-popover>
+              </headlessui-popoverGroup>
             </div>
           `
         )
@@ -1149,13 +1155,13 @@ describe('Keyboard interactions', () => {
             <div>
               <a href="/">Previous</a>
 
-              <Popover>
-                <PopoverButton>Trigger 1</PopoverButton>
-                <PopoverPanel>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                <headlessui-popover-panel>
                   <a href="/">Link 1</a>
                   <a href="/">Link 2</a>
-                </PopoverPanel>
-              </Popover>
+                </headlessui-popover-panel>
+              </headlessui-popover>
             </div>
           `
         )
@@ -1183,23 +1189,23 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <PopoverGroup>
-              <Popover>
-                <PopoverButton>Trigger 1</PopoverButton>
-                <PopoverPanel>
+            <headlessui-popoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                <headlessui-popover-panel>
                   <a href="/">Link 1</a>
                   <a href="/">Link 2</a>
-                </PopoverPanel>
-              </Popover>
+                </headlessui-popover-panel>
+              </headlessui-popover>
 
-              <Popover>
-                <PopoverButton>Trigger 2</PopoverButton>
-                <PopoverPanel>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 2</headlessui-popover-button>
+                <headlessui-popover-panel>
                   <a href="/">Link 3</a>
                   <a href="/">Link 4</a>
-                </PopoverPanel>
-              </Popover>
-            </PopoverGroup>
+                </headlessui-popover-panel>
+              </headlessui-popover>
+            </headlessui-popoverGroup>
           `
         )
 
@@ -1231,13 +1237,13 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger 1</PopoverButton>
-              <PopoverPanel focus>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+              <headlessui-popover-panel focus>
                 <a href="/">Link 1</a>
                 <a href="/">Link 2</a>
-              </PopoverPanel>
-            </Popover>
+              </headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -1267,15 +1273,15 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger 1</PopoverButton>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger 1</headlessui-popover-button>
               <Portal>
-                <PopoverPanel focus>
+                <headlessui-popover-panel focus>
                   <a href="/">Link 1</a>
                   <a href="/">Link 2</a>
-                </PopoverPanel>
+                </headlessui-popover-panel>
               </Portal>
-            </Popover>
+            </headlessui-popover>
           `
         )
 
@@ -1305,23 +1311,23 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <PopoverGroup>
-              <Popover>
-                <PopoverButton>Trigger 1</PopoverButton>
-                <PopoverPanel>
+            <headlessui-popoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                <headlessui-popover-panel>
                   <a href="/">Link 1</a>
                   <a href="/">Link 2</a>
-                </PopoverPanel>
-              </Popover>
+                </headlessui-popover-panel>
+              </headlessui-popover>
 
-              <Popover>
-                <PopoverButton>Trigger 2</PopoverButton>
-                <PopoverPanel>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 2</headlessui-popover-button>
+                <headlessui-popover-panel>
                   <a href="/">Link 3</a>
                   <a href="/">Link 4</a>
-                </PopoverPanel>
-              </Popover>
-            </PopoverGroup>
+                </headlessui-popover-panel>
+              </headlessui-popover>
+            </headlessui-popoverGroup>
           `
         )
 
@@ -1354,27 +1360,27 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <PopoverGroup>
-              <Popover>
-                <PopoverButton>Trigger 1</PopoverButton>
+            <headlessui-popoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 1</headlessui-popover-button>
                 <Portal>
-                  <PopoverPanel>
+                  <headlessui-popover-panel>
                     <a href="/">Link 1</a>
                     <a href="/">Link 2</a>
-                  </PopoverPanel>
+                  </headlessui-popover-panel>
                 </Portal>
-              </Popover>
+              </headlessui-popover>
 
-              <Popover>
-                <PopoverButton>Trigger 2</PopoverButton>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 2</headlessui-popover-button>
                 <Portal>
-                  <PopoverPanel>
+                  <headlessui-popover-panel>
                     <a href="/">Link 3</a>
                     <a href="/">Link 4</a>
-                  </PopoverPanel>
+                  </headlessui-popover-panel>
                 </Portal>
-              </Popover>
-            </PopoverGroup>
+              </headlessui-popover>
+            </headlessui-popoverGroup>
           `
         )
 
@@ -1409,10 +1415,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel>Contents</PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel>Contents</headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -1442,10 +1448,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton disabled>Trigger</PopoverButton>
-              <PopoverPanel>Contents</PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button disabled>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel>Contents</headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -1475,10 +1481,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel>Contents</PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel>Contents</headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -1515,16 +1521,16 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <PopoverGroup>
-              <Popover>
-                <PopoverButton>Trigger 1</PopoverButton>
-                <PopoverPanel>Panel 1</PopoverPanel>
-              </Popover>
-              <Popover>
-                <PopoverButton>Trigger 2</PopoverButton>
-                <PopoverPanel>Panel 2</PopoverPanel>
-              </Popover>
-            </PopoverGroup>
+            <headlessui-popoverGroup>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 1</headlessui-popover-button>
+                <headlessui-popover-panel>Panel 1</headlessui-popover-panel>
+              </headlessui-popover>
+              <headlessui-popover>
+                <headlessui-popover-button>Trigger 2</headlessui-popover-button>
+                <headlessui-popover-panel>Panel 2</headlessui-popover-panel>
+              </headlessui-popover>
+            </headlessui-popoverGroup>
           `
         )
 
@@ -1556,12 +1562,12 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate(
           html`
-            <Popover>
-              <PopoverButton>Open</PopoverButton>
-              <PopoverPanel>
-                <PopoverButton>Close</PopoverButton>
-              </PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button>Open</headlessui-popover-button>
+              <headlessui-popover-panel>
+                <headlessui-popover-button>Close</headlessui-popover-button>
+              </headlessui-popover-panel>
+            </headlessui-popover>
           `
         )
 
@@ -1593,10 +1599,10 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Popover>
-            <PopoverButton>Trigger</PopoverButton>
-            <PopoverPanel>Contents</PopoverPanel>
-          </Popover>
+          <headlessui-popover>
+            <headlessui-popover-button>Trigger</headlessui-popover-button>
+            <headlessui-popover-panel>Contents</headlessui-popover-panel>
+          </headlessui-popover>
         `
       )
 
@@ -1623,10 +1629,10 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Popover>
-            <PopoverButton>Trigger</PopoverButton>
-            <PopoverPanel>Contents</PopoverPanel>
-          </Popover>
+          <headlessui-popover>
+            <headlessui-popover-button>Trigger</headlessui-popover-button>
+            <headlessui-popover-panel>Contents</headlessui-popover-panel>
+          </headlessui-popover>
         `
       )
 
@@ -1653,10 +1659,10 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Popover>
-            <PopoverButton disabled>Trigger</PopoverButton>
-            <PopoverPanel>Contents</PopoverPanel>
-          </Popover>
+          <headlessui-popover>
+            <headlessui-popover-button disabled>Trigger</headlessui-popover-button>
+            <headlessui-popover-panel>Contents</headlessui-popover-panel>
+          </headlessui-popover>
         `
       )
 
@@ -1683,10 +1689,10 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Popover>
-            <PopoverButton>Trigger</PopoverButton>
-            <PopoverPanel>Contents</PopoverPanel>
-          </Popover>
+          <headlessui-popover>
+            <headlessui-popover-button>Trigger</headlessui-popover-button>
+            <headlessui-popover-panel>Contents</headlessui-popover-panel>
+          </headlessui-popover>
         `
       )
 
@@ -1712,11 +1718,11 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Popover>
-            <PopoverButton>Trigger</PopoverButton>
-            <PopoverPanel>Contents</PopoverPanel>
-            <PopoverOverlay />
-          </Popover>
+          <headlessui-popover>
+            <headlessui-popover-button>Trigger</headlessui-popover-button>
+            <headlessui-popover-panel>Contents</headlessui-popover-panel>
+            <headlessui-popoverOverlay />
+          </headlessui-popover>
         `
       )
 
@@ -1739,10 +1745,10 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Popover>
-            <PopoverButton>Trigger</PopoverButton>
-            <PopoverPanel>Contents</PopoverPanel>
-          </Popover>
+          <headlessui-popover>
+            <headlessui-popover-button>Trigger</headlessui-popover-button>
+            <headlessui-popover-panel>Contents</headlessui-popover-panel>
+          </headlessui-popover>
         `
       )
 
@@ -1769,10 +1775,10 @@ describe('Mouse interactions', () => {
       renderTemplate(
         html`
           <div>
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel>Contents</PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel>Contents</headlessui-popover-panel>
+            </headlessui-popover>
 
             <span>I am just text</span>
           </div>
@@ -1802,10 +1808,10 @@ describe('Mouse interactions', () => {
       renderTemplate(
         html`
           <div>
-            <Popover>
-              <PopoverButton>Trigger</PopoverButton>
-              <PopoverPanel>Contents</PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button>Trigger</headlessui-popover-button>
+              <headlessui-popover-panel>Contents</headlessui-popover-panel>
+            </headlessui-popover>
 
             <button>Different button</button>
           </div>
@@ -1836,10 +1842,10 @@ describe('Mouse interactions', () => {
       renderTemplate({
         template: html`
           <div>
-            <Popover>
-              <PopoverButton :onFocus="focusFn">Trigger</PopoverButton>
-              <PopoverPanel>Contents</PopoverPanel>
-            </Popover>
+            <headlessui-popover>
+              <headlessui-popover-button :onFocus="focusFn">Trigger</headlessui-popover-button>
+              <headlessui-popover-panel>Contents</headlessui-popover-panel>
+            </headlessui-popover>
 
             <button id="btn">
               <span>Different button</span>
@@ -1876,12 +1882,12 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate(
         html`
-          <Popover>
-            <PopoverButton>Open</PopoverButton>
-            <PopoverPanel>
-              <PopoverButton>Close</PopoverButton>
-            </PopoverPanel>
-          </Popover>
+          <headlessui-popover>
+            <headlessui-popover-button>Open</headlessui-popover-button>
+            <headlessui-popover-panel>
+              <headlessui-popover-button>Close</headlessui-popover-button>
+            </headlessui-popover-panel>
+          </headlessui-popover>
         `
       )
 

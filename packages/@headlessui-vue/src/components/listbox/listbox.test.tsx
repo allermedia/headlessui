@@ -63,15 +63,15 @@ function renderTemplate(input: string | Partial<Parameters<typeof defineComponen
 
 describe('safeguards', () => {
   it.each([
-    ['ListboxButton', ListboxButton],
-    ['ListboxLabel', ListboxLabel],
-    ['ListboxOptions', ListboxOptions],
-    ['ListboxOption', ListboxOption],
+    ['headlessui-listbox-button', ListboxButton],
+    ['headlessui-listbox-label', ListboxLabel],
+    ['headlessui-listbox-options', ListboxOptions],
+    ['headlessui-listbox-option', ListboxOption],
   ])(
-    'should error when we are using a <%s /> without a parent <Listbox />',
+    'should error when we are using a <%s /> without a parent <headlessui-listbox />',
     suppressConsoleLogs((name, Component) => {
       expect(() => render(Component)).toThrowError(
-        `<${name} /> is missing a parent <Listbox /> component.`
+        `<${name} /> is missing a parent <headlessui-listbox /> component.`
       )
     })
   )
@@ -81,14 +81,14 @@ describe('safeguards', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="a">Option A</ListboxOption>
-              <ListboxOption value="b">Option B</ListboxOption>
-              <ListboxOption value="c">Option C</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+              <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+              <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -109,14 +109,14 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value" v-slot="{ open }">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions v-show="open">
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value" v-slot="{ open }">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options v-show="open">
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -142,14 +142,14 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value" disabled>
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value" disabled>
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -185,15 +185,17 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxLabel v-slot="data">{{JSON.stringify(data)}}</ListboxLabel>
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-label v-slot="data"
+                >{{JSON.stringify(data)}}</headlessui-listbox-label
+              >
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -225,15 +227,17 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxLabel as="p" v-slot="data">{{JSON.stringify(data)}}</ListboxLabel>
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-label as="p" v-slot="data"
+                >{{JSON.stringify(data)}}</headlessui-listbox-label
+              >
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -262,14 +266,16 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton v-slot="data">{{JSON.stringify(data)}}</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button v-slot="data"
+                >{{JSON.stringify(data)}}</headlessui-listbox-button
+              >
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -297,16 +303,16 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton as="div" role="button" v-slot="data"
-                >{{JSON.stringify(data)}}</ListboxButton
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button as="div" role="button" v-slot="data"
+                >{{JSON.stringify(data)}}</headlessui-listbox-button
               >
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -334,15 +340,15 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxLabel>Label</ListboxLabel>
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-label>Label</headlessui-listbox-label>
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -365,12 +371,14 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions v-slot="data">
-                <ListboxOption value="a">{{JSON.stringify(data)}}</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options v-slot="data">
+                <headlessui-listbox-option value="a"
+                  >{{JSON.stringify(data)}}</headlessui-listbox-option
+                >
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -398,14 +406,14 @@ describe('Rendering', () => {
     it('should be possible to always render the ListboxOptions if we provide it a `static` prop', () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions static>
-              <ListboxOption value="a">Option A</ListboxOption>
-              <ListboxOption value="b">Option B</ListboxOption>
-              <ListboxOption value="c">Option C</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options static>
+              <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+              <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+              <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -417,14 +425,14 @@ describe('Rendering', () => {
     it('should be possible to use a different render strategy for the ListboxOptions', async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions :unmount="false">
-              <ListboxOption value="a">Option A</ListboxOption>
-              <ListboxOption value="b">Option B</ListboxOption>
-              <ListboxOption value="c">Option C</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options :unmount="false">
+              <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+              <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+              <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -446,12 +454,14 @@ describe('Rendering', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a" v-slot="data">{{JSON.stringify(data)}}</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-Listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a" v-slot="data"
+                  >{{JSON.stringify(data)}}</headlessui-listbox-option
+                >
+              </headlessui-listbox-options>
+            </headlessui-Listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -483,20 +493,20 @@ describe('Rendering composition', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="a" :className="JSON.stringify">
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="a" :className="JSON.stringify">
                 Option A
-              </ListboxOption>
-              <ListboxOption value="b" disabled :className="JSON.stringify">
+              </headlessui-listbox-option>
+              <headlessui-listbox-option value="b" disabled :className="JSON.stringify">
                 Option B
-              </ListboxOption>
-              <ListboxOption value="c" className="no-special-treatment">
+              </headlessui-listbox-option>
+              <headlessui-listbox-option value="c" className="no-special-treatment">
                 Option C
-              </ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+              </headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -561,20 +571,20 @@ describe('Rendering composition', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption as="button" value="a">
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option as="button" value="a">
                 Option A
-              </ListboxOption>
-              <ListboxOption as="button" value="b">
+              </headlessui-listbox-option>
+              <headlessui-listbox-option as="button" value="b">
                 Option B
-              </ListboxOption>
-              <ListboxOption as="button" value="c">
+              </headlessui-listbox-option>
+              <headlessui-listbox-option as="button" value="c">
                 Option C
-              </ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+              </headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -601,14 +611,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -650,14 +660,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value" disabled>
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value" disabled>
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -688,14 +698,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref('b') }),
         })
@@ -736,14 +746,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions :unmount="false">
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options :unmount="false">
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref('b') }),
         })
@@ -802,14 +812,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption v-for="option in options" key="option.id" :value="option"
-                  >{{ option.name }}</ListboxOption
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option v-for="option in options" key="option.id" :value="option"
+                  >{{ option.name }}</headlessui-listbox-option
                 >
-              </ListboxOptions>
-            </Listbox>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => {
             let options = [
@@ -859,10 +869,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions />
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options />
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -886,16 +896,16 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -924,18 +934,18 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -964,20 +974,20 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption disabled value="c">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1003,14 +1013,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1045,14 +1055,14 @@ describe('Keyboard interactions', () => {
         let handleChange = jest.fn()
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup() {
             let value = ref(null)
@@ -1106,14 +1116,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1152,14 +1162,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value" disabled>
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value" disabled>
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1190,14 +1200,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref('b') }),
         })
@@ -1238,10 +1248,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions />
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options />
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1265,16 +1275,16 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1303,18 +1313,18 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1343,20 +1353,20 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption disabled value="c">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1383,14 +1393,14 @@ describe('Keyboard interactions', () => {
         let handleChange = jest.fn()
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup() {
             let value = ref(null)
@@ -1444,14 +1454,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1490,14 +1500,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1544,14 +1554,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1600,14 +1610,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1648,14 +1658,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value" disabled>
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value" disabled>
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1686,14 +1696,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref('b') }),
         })
@@ -1734,10 +1744,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions />
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options />
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1761,14 +1771,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1810,16 +1820,16 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1853,18 +1863,18 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1896,14 +1906,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1944,14 +1954,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value" disabled>
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value" disabled>
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -1982,14 +1992,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref('b') }),
         })
@@ -2030,10 +2040,10 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions />
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options />
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2057,18 +2067,18 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption disabled value="b">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption disabled value="c">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2098,18 +2108,18 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2147,14 +2157,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2207,14 +2217,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2241,19 +2251,19 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption disabled value="c">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-                <ListboxOption disabled value="d">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="d">
                   Option D
-                </ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2280,21 +2290,21 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption disabled value="b">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption disabled value="c">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-                <ListboxOption disabled value="d">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="d">
                   Option D
-                </ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2318,23 +2328,23 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption disabled value="c">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-                <ListboxOption disabled value="d">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="d">
                   Option D
-                </ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2359,14 +2369,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2393,19 +2403,19 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption disabled value="c">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-                <ListboxOption disabled value="d">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="d">
                   Option D
-                </ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2432,21 +2442,21 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption disabled value="b">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption disabled value="c">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-                <ListboxOption disabled value="d">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="d">
                   Option D
-                </ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2470,23 +2480,23 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption disabled value="c">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-                <ListboxOption disabled value="d">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="d">
                   Option D
-                </ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2511,14 +2521,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2545,19 +2555,19 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-                <ListboxOption value="d">Option D</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+                <headlessui-listbox-option value="d">Option D</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2583,21 +2593,21 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption disabled value="c">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-                <ListboxOption value="d">Option D</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="d">Option D</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2621,23 +2631,23 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption disabled value="c">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-                <ListboxOption disabled value="d">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="d">
                   Option D
-                </ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2662,14 +2672,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">Option A</ListboxOption>
-                <ListboxOption value="b">Option B</ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2696,19 +2706,19 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption value="c">Option C</ListboxOption>
-                <ListboxOption value="d">Option D</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+                <headlessui-listbox-option value="d">Option D</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2734,21 +2744,21 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption disabled value="c">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-                <ListboxOption value="d">Option D</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="d">Option D</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2772,23 +2782,23 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption disabled value="a">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option disabled value="a">
                   Option A
-                </ListboxOption>
-                <ListboxOption disabled value="b">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="b">
                   Option B
-                </ListboxOption>
-                <ListboxOption disabled value="c">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="c">
                   Option C
-                </ListboxOption>
-                <ListboxOption disabled value="d">
+                </headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="d">
                   Option D
-                </ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2813,14 +2823,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="alice">alice</ListboxOption>
-                <ListboxOption value="bob">bob</ListboxOption>
-                <ListboxOption value="charlie">charlie</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+                <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+                <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2849,14 +2859,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="alice">alice</ListboxOption>
-                <ListboxOption value="bob">bob</ListboxOption>
-                <ListboxOption value="charlie">charlie</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+                <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+                <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2891,14 +2901,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="a">value a</ListboxOption>
-                <ListboxOption value="b">value b</ListboxOption>
-                <ListboxOption value="c">value c</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="a">value a</headlessui-listbox-option>
+                <headlessui-listbox-option value="b">value b</headlessui-listbox-option>
+                <headlessui-listbox-option value="c">value c</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2933,16 +2943,16 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="alice">alice</ListboxOption>
-                <ListboxOption disabled value="bob">
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+                <headlessui-listbox-option disabled value="bob">
                   bob
-                </ListboxOption>
-                <ListboxOption value="charlie">charlie</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+                </headlessui-listbox-option>
+                <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -2971,14 +2981,14 @@ describe('Keyboard interactions', () => {
       suppressConsoleLogs(async () => {
         renderTemplate({
           template: html`
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="alice">alice</ListboxOption>
-                <ListboxOption value="bob">bob</ListboxOption>
-                <ListboxOption value="charlie">charlie</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+                <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+                <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           `,
           setup: () => ({ value: ref(null) }),
         })
@@ -3010,15 +3020,15 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxLabel>Label</ListboxLabel>
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="a">Option A</ListboxOption>
-              <ListboxOption value="b">Option B</ListboxOption>
-              <ListboxOption value="c">Option C</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listboxLabel>Label</headlessui-listboxLabel>
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+              <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+              <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3039,15 +3049,15 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxLabel>Label</ListboxLabel>
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="a">Option A</ListboxOption>
-              <ListboxOption value="b">Option B</ListboxOption>
-              <ListboxOption value="c">Option C</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listboxLabel>Label</headlessui-listboxLabel>
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+              <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+              <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3068,14 +3078,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="a">Option A</ListboxOption>
-              <ListboxOption value="b">Option B</ListboxOption>
-              <ListboxOption value="c">Option C</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+              <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+              <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3110,14 +3120,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="a">Option A</ListboxOption>
-              <ListboxOption value="b">Option B</ListboxOption>
-              <ListboxOption value="c">Option C</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+              <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+              <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3141,14 +3151,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value" disabled>
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="a">Option A</ListboxOption>
-              <ListboxOption value="b">Option B</ListboxOption>
-              <ListboxOption value="c">Option C</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value" disabled>
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+              <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+              <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3176,14 +3186,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="a">Option A</ListboxOption>
-              <ListboxOption value="b">Option B</ListboxOption>
-              <ListboxOption value="c">Option C</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+              <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+              <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref('b') }),
       })
@@ -3221,14 +3231,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="a">Option A</ListboxOption>
-              <ListboxOption value="b">Option B</ListboxOption>
-              <ListboxOption value="c">Option C</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="a">Option A</headlessui-listbox-option>
+              <headlessui-listbox-option value="b">Option B</headlessui-listbox-option>
+              <headlessui-listbox-option value="c">Option C</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3253,14 +3263,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption value="bob">bob</ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3281,14 +3291,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption value="bob">bob</ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3315,23 +3325,23 @@ describe('Mouse interactions', () => {
       renderTemplate({
         template: html`
           <div>
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="alice">alice</ListboxOption>
-                <ListboxOption value="bob">bob</ListboxOption>
-                <ListboxOption value="charlie">charlie</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+                <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+                <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
 
-            <Listbox v-model="value">
-              <ListboxButton>Trigger</ListboxButton>
-              <ListboxOptions>
-                <ListboxOption value="alice">alice</ListboxOption>
-                <ListboxOption value="bob">bob</ListboxOption>
-                <ListboxOption value="charlie">charlie</ListboxOption>
-              </ListboxOptions>
-            </Listbox>
+            <headlessui-listbox v-model="value">
+              <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+              <headlessui-listbox-options>
+                <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+                <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+                <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+              </headlessui-listbox-options>
+            </headlessui-listbox>
           </div>
         `,
         setup: () => ({ value: ref(null) }),
@@ -3361,14 +3371,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption value="bob">bob</ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3394,14 +3404,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption value="bob">bob</ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3429,14 +3439,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption value="bob">bob</ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3456,14 +3466,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption value="bob">bob</ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3489,16 +3499,16 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption disabled value="bob">
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option disabled value="bob">
                 bob
-              </ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+              </headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3518,16 +3528,16 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption disabled value="bob">
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option disabled value="bob">
                 bob
-              </ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+              </headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3550,14 +3560,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption value="bob">bob</ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3595,16 +3605,16 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption disabled value="bob">
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option disabled value="bob">
                 bob
-              </ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+              </headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3629,14 +3639,14 @@ describe('Mouse interactions', () => {
       let handleChange = jest.fn()
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption value="bob">bob</ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup() {
           let value = ref(null)
@@ -3675,16 +3685,16 @@ describe('Mouse interactions', () => {
       let handleChange = jest.fn()
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption disabled value="bob">
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option disabled value="bob">
                 bob
-              </ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+              </headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup() {
           let value = ref(null)
@@ -3722,14 +3732,14 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption value="bob">bob</ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option value="bob">bob</headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })
@@ -3755,16 +3765,16 @@ describe('Mouse interactions', () => {
     suppressConsoleLogs(async () => {
       renderTemplate({
         template: html`
-          <Listbox v-model="value">
-            <ListboxButton>Trigger</ListboxButton>
-            <ListboxOptions>
-              <ListboxOption value="alice">alice</ListboxOption>
-              <ListboxOption disabled value="bob">
+          <headlessui-listbox v-model="value">
+            <headlessui-listbox-button>Trigger</headlessui-listbox-button>
+            <headlessui-listbox-options>
+              <headlessui-listbox-option value="alice">alice</headlessui-listbox-option>
+              <headlessui-listbox-option disabled value="bob">
                 bob
-              </ListboxOption>
-              <ListboxOption value="charlie">charlie</ListboxOption>
-            </ListboxOptions>
-          </Listbox>
+              </headlessui-listbox-option>
+              <headlessui-listbox-option value="charlie">charlie</headlessui-listbox-option>
+            </headlessui-listbox-options>
+          </headlessui-listbox>
         `,
         setup: () => ({ value: ref(null) }),
       })

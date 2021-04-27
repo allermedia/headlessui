@@ -44,7 +44,7 @@ interface StateDefinition {
   closePopover(): void
 }
 
-let PopoverContext = Symbol('PopoverContext') as InjectionKey<StateDefinition>
+let PopoverContext = Symbol('headlessui-popover-context') as InjectionKey<StateDefinition>
 function usePopoverContext(component: string) {
   let context = inject(PopoverContext, null)
   if (context === null) {
@@ -66,7 +66,7 @@ function usePopoverGroupContext() {
   return inject(PopoverGroupContext, null)
 }
 
-let PopoverPanelContext = Symbol('PopoverPanelContext') as InjectionKey<string | null>
+let PopoverPanelContext = Symbol('headlessui-popover-panel-context') as InjectionKey<string | null>
 function usePopoverPanelContext() {
   return inject(PopoverPanelContext, null)
 }
@@ -80,7 +80,7 @@ interface PopoverRegisterBag {
 // ---
 
 export let Popover = defineComponent({
-  name: 'Popover',
+  name: 'headlessui-popover',
   props: {
     as: { type: [Object, String], default: 'div' },
   },
@@ -168,7 +168,7 @@ export let Popover = defineComponent({
 
     return () => {
       let slot = { open: popoverState.value === PopoverStates.Open }
-      return render({ props: passThroughProps, slot, slots, attrs, name: 'Popover' })
+      return render({ props: passThroughProps, slot, slots, attrs, name: 'headlessui-popover' })
     }
   },
 })
@@ -176,13 +176,13 @@ export let Popover = defineComponent({
 // ---
 
 export let PopoverButton = defineComponent({
-  name: 'PopoverButton',
+  name: 'headlessui-popover-button',
   props: {
     as: { type: [Object, String], default: 'button' },
     disabled: { type: [Boolean], default: false },
   },
   render() {
-    let api = usePopoverContext('PopoverButton')
+    let api = usePopoverContext('headlessui-popover-button')
 
     let slot = { open: api.popoverState.value === PopoverStates.Open }
     let propsWeControl = this.isWithinPanel
@@ -207,11 +207,11 @@ export let PopoverButton = defineComponent({
       slot,
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'PopoverButton',
+      name: 'headlessui-popover-button',
     })
   },
   setup(props) {
-    let api = usePopoverContext('PopoverButton')
+    let api = usePopoverContext('headlessui-popover-button')
 
     let groupContext = usePopoverGroupContext()
     let closeOthers = groupContext?.closeOthers
@@ -354,14 +354,14 @@ export let PopoverButton = defineComponent({
 // ---
 
 export let PopoverOverlay = defineComponent({
-  name: 'PopoverOverlay',
+  name: 'headlessui-popover-overlay',
   props: {
     as: { type: [Object, String], default: 'div' },
     static: { type: Boolean, default: false },
     unmount: { type: Boolean, default: true },
   },
   render() {
-    let api = usePopoverContext('PopoverOverlay')
+    let api = usePopoverContext('headlessui-popover-overlay')
 
     let slot = { open: api.popoverState.value === PopoverStates.Open }
     let propsWeControl = {
@@ -378,11 +378,11 @@ export let PopoverOverlay = defineComponent({
       slots: this.$slots,
       features: Features.RenderStrategy | Features.Static,
       visible: slot.open,
-      name: 'PopoverOverlay',
+      name: 'headlessui-popover-overlay',
     })
   },
   setup() {
-    let api = usePopoverContext('PopoverOverlay')
+    let api = usePopoverContext('headlessui-popover-overlay')
 
     return {
       id: `headlessui-popover-overlay-${useId()}`,
@@ -396,7 +396,7 @@ export let PopoverOverlay = defineComponent({
 // ---
 
 export let PopoverPanel = defineComponent({
-  name: 'PopoverPanel',
+  name: 'headlessui-popover-panel',
   props: {
     as: { type: [Object, String], default: 'div' },
     static: { type: Boolean, default: false },
@@ -404,7 +404,7 @@ export let PopoverPanel = defineComponent({
     focus: { type: Boolean, default: false },
   },
   render() {
-    let api = usePopoverContext('PopoverPanel')
+    let api = usePopoverContext('headlessui-popover-panel')
 
     let slot = { open: api.popoverState.value === PopoverStates.Open }
     let propsWeControl = {
@@ -420,12 +420,12 @@ export let PopoverPanel = defineComponent({
       slots: this.$slots,
       features: Features.RenderStrategy | Features.Static,
       visible: slot.open,
-      name: 'PopoverPanel',
+      name: 'headlessui-popover-panel',
     })
   },
   setup(props) {
     let { focus } = props
-    let api = usePopoverContext('PopoverPanel')
+    let api = usePopoverContext('headlessui-popover-panel')
 
     provide(PopoverPanelContext, api.panelId)
 
@@ -520,7 +520,7 @@ export let PopoverPanel = defineComponent({
 // ---
 
 export let PopoverGroup = defineComponent({
-  name: 'PopoverGroup',
+  name: 'headlessui-popover-group',
   props: {
     as: { type: [Object, String], default: 'div' },
   },
@@ -532,7 +532,7 @@ export let PopoverGroup = defineComponent({
       slot: {},
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'PopoverGroup',
+      name: 'headlessui-popover-group',
     })
   },
   setup() {

@@ -70,13 +70,13 @@ it('should be possible to use multiple Portal elements', () => {
   renderTemplate(
     html`
       <main id="parent">
-        <Portal>
+        <headlessui-portal>
           <p id="content1">Contents 1 ...</p>
-        </Portal>
+        </headlessui-portal>
         <hr />
-        <Portal>
+        <headlessui-portal>
           <p id="content2">Contents 2 ...</p>
-        </Portal>
+        </headlessui-portal>
       </main>
     `
   )
@@ -115,13 +115,13 @@ it('should cleanup the Portal root when the last Portal is unmounted', async () 
           Toggle B
         </button>
 
-        <Portal v-if="renderA">
+        <headlessui-portal v-if="renderA">
           <p id="content1">Contents 1 ...</p>
-        </Portal>
+        </headlessui-portal>
 
-        <Portal v-if="renderB">
+        <headlessui-portal v-if="renderB">
           <p id="content2">Contents 2 ...</p>
-        </Portal>
+        </headlessui-portal>
       </main>
     `,
     setup() {
@@ -196,17 +196,17 @@ it('should be possible to render multiple portals at the same time', async () =>
           Toggle A & B
         </button>
 
-        <Portal v-if="renderA">
+        <headlessui-portal v-if="renderA">
           <p id="content1">Contents 1 ...</p>
-        </Portal>
+        </headlessui-portal>
 
-        <Portal v-if="renderB">
+        <headlessui-portal v-if="renderB">
           <p id="content2">Contents 2 ...</p>
-        </Portal>
+        </headlessui-portal>
 
-        <Portal v-if="renderC">
+        <headlessui-portal v-if="renderC">
           <p id="content3">Contents 3 ...</p>
-        </Portal>
+        </headlessui-portal>
       </main>
     `,
     setup() {
@@ -276,13 +276,13 @@ it('should be possible to tamper with the modal root and restore correctly', asy
           Toggle B
         </button>
 
-        <Portal v-if="renderA">
+        <headlessui-portal v-if="renderA">
           <p id="content1">Contents 1 ...</p>
-        </Portal>
+        </headlessui-portal>
 
-        <Portal v-if="renderB">
+        <headlessui-portal v-if="renderB">
           <p id="content2">Contents 2 ...</p>
-        </Portal>
+        </headlessui-portal>
       </main>
     `,
     setup() {
@@ -329,12 +329,12 @@ it('should be possible to force the Portal into a specific element using PortalG
           A
         </aside>
 
-        <PortalGroup :target="container">
+        <headlessui-portal-group :target="container">
           <section id="group-2">
             <span>B</span>
           </section>
-          <Portal>Next to A</Portal>
-        </PortalGroup>
+          <headlessui-portal>Next to A</headlessui-portal>
+        </headlessui-portal-group>
       </main>
     `,
     setup() {

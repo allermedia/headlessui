@@ -53,7 +53,8 @@ export function useFocusTrap(
         }
       }
 
-      if (!couldFocus) throw new Error('There are no focusable elements inside the <FocusTrap />')
+      if (!couldFocus)
+        throw new Error('There are no focusable elements inside the <headlessui-focus-trap />')
     }
 
     previousActiveElement.value = document.activeElement as HTMLElement

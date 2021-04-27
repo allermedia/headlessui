@@ -35,7 +35,7 @@ describe('Safe guards', () => {
   it('should be possible to render a Switch without crashing', () => {
     renderTemplate({
       template: html`
-        <Switch v-model="checked" />
+        <headlessui-switch v-model="checked" />
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -46,9 +46,9 @@ describe('Rendering', () => {
   it('should be possible to render an (on) Switch using a render prop', () => {
     renderTemplate({
       template: html`
-        <Switch v-model="checked">
+        <headlessui-switch v-model="checked">
           {({ checked }) => <span>{checked ? 'On' : 'Off'}</span>}
-        </Switch>
+        </headlessui-switch>
       `,
       setup: () => ({ checked: ref(true) }),
     })
@@ -59,9 +59,9 @@ describe('Rendering', () => {
   it('should be possible to render an (off) Switch using a render prop', () => {
     renderTemplate({
       template: html`
-        <Switch v-model="checked">
+        <headlessui-switch v-model="checked">
           {({ checked }) => <span>{checked ? 'On' : 'Off'}</span>}
-        </Switch>
+        </headlessui-switch>
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -72,7 +72,7 @@ describe('Rendering', () => {
   it('should be possible to render an (on) Switch using an `as` prop', () => {
     renderTemplate({
       template: html`
-        <Switch as="span" v-model="checked" />
+        <headlessui-switch as="span" v-model="checked" />
       `,
       setup: () => ({ checked: ref(true) }),
     })
@@ -82,7 +82,7 @@ describe('Rendering', () => {
   it('should be possible to render an (off) Switch using an `as` prop', () => {
     renderTemplate({
       template: html`
-        <Switch as="span" v-model="checked" />
+        <headlessui-switch as="span" v-model="checked" />
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -92,9 +92,9 @@ describe('Rendering', () => {
   it('should be possible to use the switch contents as the label', () => {
     renderTemplate({
       template: html`
-        <Switch v-model="checked">
+        <headlessui-switch v-model="checked">
           <span>Enable notifications</span>
-        </Switch>
+        </headlessui-switch>
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -107,10 +107,10 @@ describe('Render composition', () => {
   it('should be possible to render a SwitchGroup, Switch and SwitchLabel', async () => {
     renderTemplate({
       template: html`
-        <SwitchGroup>
-          <Switch v-model="checked" />
-          <SwitchLabel>Enable notifications</SwitchLabel>
-        </SwitchGroup>
+        <headlessui-switch-group>
+          <headlessui-switch v-model="checked" />
+          <headlessui-switch-label>Enable notifications</headlessui-switch-label>
+        </headlessui-switch-group>
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -123,12 +123,12 @@ describe('Render composition', () => {
   it('should be possible to render a SwitchGroup, Switch and SwitchLabel (before the Switch)', async () => {
     renderTemplate({
       template: html`
-        <SwitchGroup>
-          <SwitchLabel>Label B</SwitchLabel>
-          <Switch v-model="checked">
+        <headlessui-switch-group>
+          <headlessui-switch-label>Label B</headlessui-switch-label>
+          <headlessui-switch v-model="checked">
             Label A
-          </Switch>
-        </SwitchGroup>
+          </headlessui-switch>
+        </headlessui-switch-group>
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -145,12 +145,12 @@ describe('Render composition', () => {
   it('should be possible to render a SwitchGroup, Switch and SwitchLabel (after the Switch)', async () => {
     renderTemplate({
       template: html`
-        <SwitchGroup>
-          <Switch v-model="checked">
+        <headlessui-switch-group>
+          <headlessui-switch v-model="checked">
             Label A
-          </Switch>
-          <SwitchLabel>Label B</SwitchLabel>
-        </SwitchGroup>
+          </headlessui-switch>
+          <headlessui-switch-label>Label B</headlessui-switch-label>
+        </headlessui-switch-group>
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -167,10 +167,12 @@ describe('Render composition', () => {
   it('should be possible to render a Switch.Group, Switch and Switch.Description (before the Switch)', async () => {
     renderTemplate({
       template: html`
-        <SwitchGroup>
-          <SwitchDescription>This is an important feature</SwitchDescription>
-          <Switch v-model="checked" />
-        </SwitchGroup>
+        <headlessui-switch-group>
+          <headlessui-switch-description
+            >This is an important feature</headlessui-switch-description
+          >
+          <headlessui-switch v-model="checked" />
+        </headlessui-switch-group>
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -183,10 +185,12 @@ describe('Render composition', () => {
   it('should be possible to render a Switch.Group, Switch and Switch.Description (after the Switch)', async () => {
     renderTemplate({
       template: html`
-        <SwitchGroup>
-          <Switch v-model="checked" />
-          <SwitchDescription>This is an important feature</SwitchDescription>
-        </SwitchGroup>
+        <headlessui-switch-group>
+          <headlessui-switch v-model="checked" />
+          <headlessui-switch-description
+            >This is an important feature</headlessui-switch-description
+          >
+        </headlessui-switch-group>
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -199,11 +203,13 @@ describe('Render composition', () => {
   it('should be possible to render a Switch.Group, Switch, Switch.Label and Switch.Description', async () => {
     renderTemplate({
       template: html`
-        <SwitchGroup>
-          <SwitchLabel>Label A</SwitchLabel>
-          <Switch v-model="checked" />
-          <SwitchDescription>This is an important feature</SwitchDescription>
-        </SwitchGroup>
+        <headlessui-switch-group>
+          <headlessui-switch-label>Label A</headlessui-switch-label>
+          <headlessui-switch v-model="checked" />
+          <headlessui-switch-description
+            >This is an important feature</headlessui-switch-description
+          >
+        </headlessui-switch-group>
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -220,10 +226,10 @@ describe('Render composition', () => {
   it('should be possible to put classes on a SwitchLabel', async () => {
     renderTemplate({
       template: html`
-        <SwitchGroup>
-          <SwitchLabel class="abc">Label A</SwitchLabel>
-          <Switch v-model="checked" />
-        </SwitchGroup>
+        <headlessui-switch-group>
+          <headlessui-switch-label class="abc">Label A</headlessui-switch-label>
+          <headlessui-switch v-model="checked" />
+        </headlessui-switch-group>
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -241,10 +247,10 @@ describe('Render composition', () => {
   it('should be possible to put classes on a SwitchDescription', async () => {
     renderTemplate({
       template: html`
-        <SwitchGroup>
-          <SwitchDescription class="abc">Description A</SwitchDescription>
-          <Switch v-model="checked" />
-        </SwitchGroup>
+        <headlessui-switch-group>
+          <headlessui-switch-description class="abc">Description A</headlessui-switch-description>
+          <headlessui-switch v-model="checked" />
+        </headlessui-switch-group>
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -262,9 +268,9 @@ describe('Render composition', () => {
   it('should be possible to put classes on a SwitchGroup', async () => {
     renderTemplate({
       template: html`
-        <SwitchGroup as="div" class="abc" id="group">
-          <Switch v-model="checked" />
-        </SwitchGroup>
+        <headlessui-switch-group as="div" class="abc" id="group">
+          <headlessui-switch v-model="checked" />
+        </headlessui-switch-group>
       `,
       setup: () => ({ checked: ref(false) }),
     })
@@ -283,7 +289,7 @@ describe('Keyboard interactions', () => {
       let handleChange = jest.fn()
       renderTemplate({
         template: html`
-          <Switch v-model="checked" />
+          <headlessui-switch v-model="checked" />
         `,
         setup() {
           let checked = ref(false)
@@ -317,7 +323,7 @@ describe('Keyboard interactions', () => {
       let handleChange = jest.fn()
       renderTemplate({
         template: html`
-          <Switch v-model="checked" />
+          <headlessui-switch v-model="checked" />
         `,
         setup() {
           let checked = ref(false)
@@ -344,7 +350,7 @@ describe('Keyboard interactions', () => {
       renderTemplate({
         template: html`
           <div>
-            <Switch v-model="checked" />
+            <headlessui-switch v-model="checked" />
             <button id="btn">Other element</button>
           </div>
         `,
@@ -374,7 +380,7 @@ describe('Mouse interactions', () => {
     let handleChange = jest.fn()
     renderTemplate({
       template: html`
-        <Switch v-model="checked" />
+        <headlessui-switch v-model="checked" />
       `,
       setup() {
         let checked = ref(false)
@@ -403,10 +409,10 @@ describe('Mouse interactions', () => {
     let handleChange = jest.fn()
     renderTemplate({
       template: html`
-        <SwitchGroup>
-          <Switch v-model="checked" />
-          <SwitchLabel>The label</SwitchLabel>
-        </SwitchGroup>
+        <headlessui-switch-group>
+          <headlessui-switch v-model="checked" />
+          <headlessui-switch-label>The label</headlessui-switch-label>
+        </headlessui-switch-group>
       `,
       setup() {
         let checked = ref(false)
@@ -441,10 +447,10 @@ describe('Mouse interactions', () => {
     let handleChange = jest.fn()
     renderTemplate({
       template: html`
-        <SwitchGroup>
-          <Switch v-model="checked" />
-          <SwitchLabel passive>The label</SwitchLabel>
-        </SwitchGroup>
+        <headlessui-switch-group>
+          <headlessui-switch v-model="checked" />
+          <headlessui-switch-label passive>The label</headlessui-switch-label>
+        </headlessui-switch-group>
       `,
       setup() {
         let checked = ref(false)

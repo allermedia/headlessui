@@ -56,13 +56,13 @@ type StateDefinition = {
   select(value: unknown): void
 }
 
-let ListboxContext = Symbol('ListboxContext') as InjectionKey<StateDefinition>
+let ListboxContext = Symbol('headlessui-listbox-context') as InjectionKey<StateDefinition>
 
 function useListboxContext(component: string) {
   let context = inject(ListboxContext, null)
 
   if (context === null) {
-    let err = new Error(`<${component} /> is missing a parent <Listbox /> component.`)
+    let err = new Error(`<${component} /> is missing a parent <headlessui-listbox /> component.`)
     if (Error.captureStackTrace) Error.captureStackTrace(err, useListboxContext)
     throw err
   }
@@ -73,7 +73,7 @@ function useListboxContext(component: string) {
 // ---
 
 export let Listbox = defineComponent({
-  name: 'Listbox',
+  name: 'headlessui-listbox',
   emits: ['update:modelValue'],
   props: {
     as: { type: [Object, String], default: 'template' },
@@ -205,10 +205,10 @@ export let Listbox = defineComponent({
 // ---
 
 export let ListboxLabel = defineComponent({
-  name: 'ListboxLabel',
+  name: 'headlessui-listbox-Label',
   props: { as: { type: [Object, String], default: 'label' } },
   render() {
-    let api = useListboxContext('ListboxLabel')
+    let api = useListboxContext('headlessui-listbox-label')
 
     let slot = { open: api.listboxState.value === ListboxStates.Open, disabled: api.disabled }
     let propsWeControl = { id: this.id, ref: 'el', onClick: this.handleClick }
@@ -218,11 +218,11 @@ export let ListboxLabel = defineComponent({
       slot,
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'ListboxLabel',
+      name: 'headlessui-listbox-label',
     })
   },
   setup() {
-    let api = useListboxContext('ListboxLabel')
+    let api = useListboxContext('headlessui-listbox-label')
     let id = `headlessui-listbox-label-${useId()}`
 
     return {
@@ -238,12 +238,12 @@ export let ListboxLabel = defineComponent({
 // ---
 
 export let ListboxButton = defineComponent({
-  name: 'ListboxButton',
+  name: 'headlessui-listbox-button',
   props: {
     as: { type: [Object, String], default: 'button' },
   },
   render() {
-    let api = useListboxContext('ListboxButton')
+    let api = useListboxContext('headlessui-listbox-button')
 
     let slot = { open: api.listboxState.value === ListboxStates.Open, disabled: api.disabled }
     let propsWeControl = {
@@ -267,11 +267,11 @@ export let ListboxButton = defineComponent({
       slot,
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'ListboxButton',
+      name: 'headlessui-listbox-button',
     })
   },
   setup() {
-    let api = useListboxContext('ListboxButton')
+    let api = useListboxContext('headlessui-listbox-button')
     let id = `headlessui-listbox-button-${useId()}`
 
     function handleKeyDown(event: KeyboardEvent) {
@@ -330,14 +330,14 @@ export let ListboxButton = defineComponent({
 // ---
 
 export let ListboxOptions = defineComponent({
-  name: 'ListboxOptions',
+  name: 'headlessui-listbox-options',
   props: {
     as: { type: [Object, String], default: 'ul' },
     static: { type: Boolean, default: false },
     unmount: { type: Boolean, default: true },
   },
   render() {
-    let api = useListboxContext('ListboxOptions')
+    let api = useListboxContext('headlessui-listbox-options')
 
     let slot = { open: api.listboxState.value === ListboxStates.Open }
     let propsWeControl = {
@@ -361,11 +361,11 @@ export let ListboxOptions = defineComponent({
       slots: this.$slots,
       features: Features.RenderStrategy | Features.Static,
       visible: slot.open,
-      name: 'ListboxOptions',
+      name: 'headlessui-listbox-options',
     })
   },
   setup() {
-    let api = useListboxContext('ListboxOptions')
+    let api = useListboxContext('headlessui-listbox-options')
     let id = `headlessui-listbox-options-${useId()}`
     let searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null)
 
@@ -442,7 +442,7 @@ export let ListboxOptions = defineComponent({
 })
 
 export let ListboxOption = defineComponent({
-  name: 'ListboxOption',
+  name: 'headlessui-listbox-option',
   props: {
     as: { type: [Object, String], default: 'li' },
     value: { type: [Object, String], default: null },
@@ -451,7 +451,7 @@ export let ListboxOption = defineComponent({
     className: { type: [String, Function], required: false },
   },
   setup(props, { slots, attrs }) {
-    let api = useListboxContext('ListboxOption')
+    let api = useListboxContext('headlessui-listbox-option')
     let id = `headlessui-listbox-option-${useId()}`
     let { disabled, class: defaultClass, className = defaultClass, value } = props
 
@@ -540,7 +540,7 @@ export let ListboxOption = defineComponent({
         slot,
         attrs,
         slots,
-        name: 'ListboxOption',
+        name: 'headlessui-listbox-option',
       })
     }
   },

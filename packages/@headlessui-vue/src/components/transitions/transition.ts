@@ -32,7 +32,9 @@ interface TransitionContextValues {
   show: Ref<boolean>
   appear: Ref<boolean>
 }
-let TransitionContext = Symbol('TransitionContext') as InjectionKey<TransitionContextValues | null>
+let TransitionContext = Symbol(
+  'headlessui-transition-context'
+) as InjectionKey<TransitionContextValues | null>
 
 enum TreeStates {
   Visible = 'visible',
@@ -43,7 +45,9 @@ function useTransitionContext() {
   let context = inject(TransitionContext, null)
 
   if (context === null) {
-    throw new Error('A <TransitionChild /> is used but it is missing a parent <TransitionRoot />.')
+    throw new Error(
+      'A <headlessui-transition-child /> is used but it is missing a parent <headlessui-transition-root />.'
+    )
   }
 
   return context
@@ -53,7 +57,9 @@ function useParentNesting() {
   let context = inject(NestingContext, null)
 
   if (context === null) {
-    throw new Error('A <TransitionChild /> is used but it is missing a parent <TransitionRoot />.')
+    throw new Error(
+      'A <headlessui-transition-child /> is used but it is missing a parent <headlessui-transition-root />.'
+    )
   }
 
   return context
@@ -65,7 +71,9 @@ interface NestingContextValues {
   unregister: (id: ID, strategy?: RenderStrategy) => void
 }
 
-let NestingContext = Symbol('NestingContext') as InjectionKey<NestingContextValues | null>
+let NestingContext = Symbol(
+  'headlessui-nesting-context'
+) as InjectionKey<NestingContextValues | null>
 
 function hasChildren(
   bag: NestingContextValues['children'] | { children: NestingContextValues['children'] }
@@ -160,7 +168,7 @@ export let TransitionChild = defineComponent({
       attrs: this.$attrs,
       features: TransitionChildRenderFeatures,
       visible: this.state === TreeStates.Visible,
-      name: 'TransitionChild',
+      name: 'headlessui-transition-child',
     })
   },
   setup(props, { emit }) {
@@ -325,7 +333,7 @@ export let TransitionRoot = defineComponent({
       attrs: {},
       features: TransitionChildRenderFeatures,
       visible: this.state === TreeStates.Visible,
-      name: 'Transition',
+      name: 'headlessui-transition',
     })
   },
   setup(props) {

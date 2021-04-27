@@ -10,7 +10,7 @@ import {
 
 type OnUpdate = (message: StackMessage, element: HTMLElement) => void
 
-let StackContext = Symbol('StackContext') as InjectionKey<OnUpdate>
+let StackContext = Symbol('headlessui-stack-context') as InjectionKey<OnUpdate>
 
 export enum StackMessage {
   AddElement,

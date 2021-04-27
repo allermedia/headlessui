@@ -47,12 +47,12 @@ interface StateDefinition {
   close(): void
 }
 
-let DialogContext = Symbol('DialogContext') as InjectionKey<StateDefinition>
+let DialogContext = Symbol('headlessui-dialog-context') as InjectionKey<StateDefinition>
 
 function useDialogContext(component: string) {
   let context = inject(DialogContext, null)
   if (context === null) {
-    let err = new Error(`<${component} /> is missing a parent <Dialog /> component.`)
+    let err = new Error(`<${component} /> is missing a parent <headlessui-dialog /> component.`)
     if (Error.captureStackTrace) Error.captureStackTrace(err, useDialogContext)
     throw err
   }
@@ -64,7 +64,7 @@ function useDialogContext(component: string) {
 let Missing = 'DC8F892D-2EBD-447C-A4C8-A03058436FF4'
 
 export let Dialog = defineComponent({
-  name: 'Dialog',
+  name: 'headlessui-dialog',
   inheritAttrs: false, // Manually handling this
   props: {
     as: { type: [Object, String], default: 'div' },
@@ -102,7 +102,7 @@ export let Dialog = defineComponent({
               slots: this.$slots,
               visible: open,
               features: Features.RenderStrategy | Features.Static,
-              name: 'Dialog',
+              name: 'headlessui-dialog',
             })
           )
         )
@@ -153,7 +153,7 @@ export let Dialog = defineComponent({
     })
 
     let describedby = useDescriptions({
-      name: 'DialogDescription',
+      name: 'headlessui-dialog-description',
       slot: { open: props.open },
     })
 
@@ -256,12 +256,12 @@ export let Dialog = defineComponent({
 // ---
 
 export let DialogOverlay = defineComponent({
-  name: 'DialogOverlay',
+  name: 'headlessui-dialog-overlay',
   props: {
     as: { type: [Object, String], default: 'div' },
   },
   render() {
-    let api = useDialogContext('DialogOverlay')
+    let api = useDialogContext('headlessui-dialog-overlay')
     let propsWeControl = {
       ref: 'el',
       id: this.id,
@@ -275,11 +275,11 @@ export let DialogOverlay = defineComponent({
       slot: { open: api.dialogState.value === DialogStates.Open },
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'DialogOverlay',
+      name: 'headlessui-dialog-overlay',
     })
   },
   setup() {
-    let api = useDialogContext('DialogOverlay')
+    let api = useDialogContext('headlessui-dialog-overlay')
     let id = `headlessui-dialog-overlay-${useId()}`
 
     return {
@@ -296,12 +296,12 @@ export let DialogOverlay = defineComponent({
 // ---
 
 export let DialogTitle = defineComponent({
-  name: 'DialogTitle',
+  name: 'headlessui-dialog-title',
   props: {
     as: { type: [Object, String], default: 'h2' },
   },
   render() {
-    let api = useDialogContext('DialogTitle')
+    let api = useDialogContext('headlessui-dialog-title')
     let propsWeControl = { id: this.id }
     let passThroughProps = this.$props
 
@@ -310,11 +310,11 @@ export let DialogTitle = defineComponent({
       slot: { open: api.dialogState.value === DialogStates.Open },
       attrs: this.$attrs,
       slots: this.$slots,
-      name: 'DialogTitle',
+      name: 'headlessui-dialog-title',
     })
   },
   setup() {
-    let api = useDialogContext('DialogTitle')
+    let api = useDialogContext('headlessui-dialog-title')
     let id = `headlessui-dialog-title-${useId()}`
 
     onMounted(() => {
